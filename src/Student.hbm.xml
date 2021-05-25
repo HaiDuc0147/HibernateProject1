@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="hibernate.Student" table="student" schema="public" catalog="StudentDB">
+        <id name="id">
+            <column name="id" sql-type="integer"/>
+            <generator class="identity"/>
+        </id>
+        <property name="studentId">
+            <column name="student_id" sql-type="varchar(8)" length="8" not-null="true"/>
+        </property>
+        <property name="studentName">
+            <column name="student_name" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="classId">
+            <column name="class_id" sql-type="varchar(6)" length="6" not-null="true"/>
+        </property>
+        <property name="credits">
+            <column name="credits" sql-type="integer" not-null="true"/>
+        </property>
+        <property name="gender">
+            <column name="gender" sql-type="boolean" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
