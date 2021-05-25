@@ -1,7 +1,6 @@
 package dao;
 
 import hibernate.Login;
-import hibernate.Student;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

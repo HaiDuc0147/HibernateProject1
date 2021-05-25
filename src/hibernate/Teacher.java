@@ -10,14 +10,6 @@ public class Teacher {
         return teacherId;
     }
 
-    @Override
-    public String toString() {
-        return "Teacher{" +
-                "teacherId='" + teacherId + '\'' +
-                ", teacherName='" + teacherName + '\'' +
-                '}';
-    }
-
     public void setTeacherId(String teacherId) {
         this.teacherId = teacherId;
     }

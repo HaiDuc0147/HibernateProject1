@@ -13,6 +13,7 @@
         <mapping resource="Login.hbm.xml"/>
         <mapping resource="Subject.hbm.xml"/>
         <mapping resource="Student.hbm.xml"/>
+
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 

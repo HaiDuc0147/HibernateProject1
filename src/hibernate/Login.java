@@ -1,20 +1,18 @@
 package hibernate;
 
-import javax.persistence.GeneratedValue;
 import java.util.Objects;
 
 public class Login {
-
-    private short id;
+    private int id;
     private String username;
     private String password;
     private Boolean role;
 
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -48,16 +46,6 @@ public class Login {
         if (o == null || getClass() != o.getClass()) return false;
         Login login = (Login) o;
         return id == login.id && Objects.equals(username, login.username) && Objects.equals(password, login.password) && Objects.equals(role, login.role);
-    }
-
-    @Override
-    public String toString() {
-        return "Login{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
     }
 
     @Override

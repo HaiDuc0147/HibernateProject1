@@ -1,15 +1,8 @@
 
-import GUI.AddStudent;
-import GUI.LoginForm;
 import dao.LoginDao;
-import dao.TeacherDao;
 import hibernate.Login;
-import hibernate.Teacher;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
 
