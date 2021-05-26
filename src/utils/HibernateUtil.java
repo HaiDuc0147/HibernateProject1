@@ -4,6 +4,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
     static{
@@ -19,4 +22,5 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+
 }

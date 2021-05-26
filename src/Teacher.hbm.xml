@@ -9,7 +9,7 @@
             <column name="teacher_id" sql-type="varchar(8)" length="8"/>
         </id>
         <property name="teacherName">
-            <column name="teacher_name" sql-type="varchar(50)" length="50" not-null="true"/>
+            <column name="teacher_name" sql-type="varchar(50)" length="50"/>
         </property>
     </class>
 </hibernate-mapping>

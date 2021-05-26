@@ -6,9 +6,17 @@ public class Student {
     private int id;
     private String studentId;
     private String studentName;
+    private int credits;
+    private boolean gender;
     private String classId;
-    private Integer credits;
-    private Boolean gender;
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
 
     public int getId() {
         return id;
@@ -34,27 +42,19 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public String getClassId() {
-        return classId;
-    }
-
-    public void setClassId(String classId) {
-        this.classId = classId;
-    }
-
-    public Integer getCredits() {
+    public int getCredits() {
         return credits;
     }
 
-    public void setCredits(Integer credits) {
+    public void setCredits(int credits) {
         this.credits = credits;
     }
 
-    public Boolean getGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
@@ -63,11 +63,11 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id && Objects.equals(studentId, student.studentId) && Objects.equals(studentName, student.studentName) && Objects.equals(classId, student.classId) && Objects.equals(credits, student.credits) && Objects.equals(gender, student.gender);
+        return id == student.id && credits == student.credits && gender == student.gender && Objects.equals(studentId, student.studentId) && Objects.equals(studentName, student.studentName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, studentId, studentName, classId, credits, gender);
+        return Objects.hash(id, studentId, studentName, credits, gender);
     }
 }

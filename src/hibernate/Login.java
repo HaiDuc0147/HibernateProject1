@@ -6,7 +6,7 @@ public class Login {
     private int id;
     private String username;
     private String password;
-    private Boolean role;
+    private boolean role;
 
     public int getId() {
         return id;
@@ -32,11 +32,11 @@ public class Login {
         this.password = password;
     }
 
-    public Boolean getRole() {
+    public boolean isRole() {
         return role;
     }
 
-    public void setRole(Boolean role) {
+    public void setRole(boolean role) {
         this.role = role;
     }
 
@@ -45,7 +45,7 @@ public class Login {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Login login = (Login) o;
-        return id == login.id && Objects.equals(username, login.username) && Objects.equals(password, login.password) && Objects.equals(role, login.role);
+        return id == login.id && role == login.role && Objects.equals(username, login.username) && Objects.equals(password, login.password);
     }
 
     @Override

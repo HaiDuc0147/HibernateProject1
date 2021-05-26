@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="hibernate.Semester" table="semester" schema="public" catalog="StudentDB">
+        <id name="id">
+            <column name="id" sql-type="integer"/>
+            <generator class="identity"/>
+        </id>
+        <property name="semesterName">
+            <column name="semester_name" sql-type="varchar(3)" length="3"/>
+        </property>
+        <property name="year">
+            <column name="year" sql-type="integer"/>
+        </property>
+        <property name="startDay">
+            <column name="start_day" sql-type="date"/>
+        </property>
+        <property name="endDay">
+            <column name="end_day" sql-type="date"/>
+        </property>
+    </class>
+</hibernate-mapping>

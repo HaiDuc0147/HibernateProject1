@@ -7,15 +7,16 @@
     <class name="hibernate.Login" table="login" schema="public" catalog="StudentDB">
         <id name="id">
             <column name="id" sql-type="integer"/>
+            <generator class="identity"/>
         </id>
         <property name="username">
-            <column name="username" sql-type="varchar(50)" length="50" not-null="true"/>
+            <column name="username" sql-type="varchar(50)" length="50"/>
         </property>
         <property name="password">
-            <column name="password" sql-type="varchar(50)" length="50" not-null="true"/>
+            <column name="password" sql-type="varchar(50)" length="50"/>
         </property>
         <property name="role">
-            <column name="role" sql-type="boolean" not-null="true"/>
+            <column name="role" sql-type="boolean"/>
         </property>
     </class>
 </hibernate-mapping>

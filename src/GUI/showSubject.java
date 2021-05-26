@@ -12,6 +12,8 @@ public class showSubject extends JDialog {
     private JTable Subjects;
 
     public showSubject() {
+        this.setTitle("Danh sách môn học");
+        this.setSize(500, 700);
         setContentPane(contentPane);
         setModal(true);
         List<Subject> subjects = SubjectDao.getAllSubjects();
@@ -50,7 +52,6 @@ public class showSubject extends JDialog {
 
     public static void main(String[] args) {
         showSubject dialog = new showSubject();
-        dialog.setTitle("Danh sách môn học");
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);

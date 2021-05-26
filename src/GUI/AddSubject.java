@@ -17,8 +17,10 @@ public class AddSubject extends JDialog {
 
     public AddSubject() {
         setContentPane(contentPane);
+        this.setTitle("Thêm môn học");
+        this.setSize(300, 300);
         setModal(true);
-
+        this.setLocationRelativeTo(null);
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

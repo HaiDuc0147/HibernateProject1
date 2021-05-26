@@ -40,6 +40,13 @@ public class Clazz {
         this.numberOfFemale = numberOfFemale;
     }
 
+    public Clazz(String classId, Integer numberOfStudent, Integer numberOfMale, Integer numberOfFemale) {
+        this.classId = classId;
+        this.numberOfStudent = numberOfStudent;
+        this.numberOfMale = numberOfMale;
+        this.numberOfFemale = numberOfFemale;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

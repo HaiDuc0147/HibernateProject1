@@ -22,6 +22,8 @@ public class AddStudent extends JDialog {
     public AddStudent() {
         setContentPane(contentPane);
         setModal(true);
+        this.setTitle("Thêm sinh viên");
+        this.setSize(300, 300);
 
 
         // call onCancel() when cross is clicked
