@@ -26,6 +26,15 @@ public class LoginDao {
         }
         return logins;
     }
+    public static Login getAnAccount(String username) {
+        List<Login> logins = LoginDao.getAllAccounts();
+        int i = 0;
+        for(;i < logins.size(); i++)
+            if(logins.get(i).getUsername().equals(username))
+                return logins.get(i);
+        return null;
+    }
+
 
     public static void insertALogin(Login l){
         //Login l = new Login();
@@ -47,5 +56,31 @@ public class LoginDao {
         }
         return false;
     }
-
+    public static boolean updateAccount(Login l) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        if (LoginDao.getAnAccount(l.getUsername())==null) {
+            return false;
+        }
+        l.setId(LoginDao.getAnAccount(l.getUsername()).getId());
+        Transaction t = null;
+        try {
+            t = session.beginTransaction();
+            session.update(l);
+            t.commit();
+        } catch (HibernateException ex) {
+            t.rollback();
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return true;
+    }
+    public static void main(String[] args){
+        Login l = new Login();
+        //l.setId(1);
+        l.setUsername("admin");
+        l.setPassword("admin");
+        l.setRole(true);
+        LoginDao.updateAccount(l);
+    }
 }

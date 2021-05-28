@@ -4,7 +4,9 @@ import dao.LoginDao;
 import hibernate.Login;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class LoginForm extends JDialog {
     private JPanel contentPane;
@@ -14,53 +16,51 @@ public class LoginForm extends JDialog {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
-    private JCheckBox isTeacher;
-    private JCheckBox isStudent;
-
+    public static String usernameGlobal;
+    public static String passwordGlobal;
 
     public LoginForm() {
+        this.setSize(300, 200);
+        this.setTitle("Đăng nhập");
         setContentPane(contentPane);
         setModal(true);
         //getRootPane().setDefaultButton(buttonOK);
-
-
-        // call onCancel() when cross is clicked
-
-
-        // call onCancel() on ESCAPE
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
+                usernameGlobal = username;
+                passwordGlobal = password;
                 Login l = new Login();
                 l.setUsername(username);
                 l.setPassword(password);
-                l.setRole(isTeacher.isSelected());
+                l.setRole(true);
                 //System.out.println(isTeacher.getText());
                 //LoginDao.insertALogin(l);
                 String message = "";
-                if(LoginDao.checkAccountExisted(l))
+                Boolean isSuccessLogin = false;
+                if(LoginDao.checkAccountExisted(l)) {
                     message = "Đăng nhập thành công!";
+                    isSuccessLogin = true;
+                }
                 else
                     message = "Đăng nhập thất bại, vui lòng kiểm tra lại username và password!";
                 JOptionPane.showMessageDialog(null, message);
+                if(isSuccessLogin){
+                    try {
+                        listFeature features = new listFeature();
+                        features.setVisible(true);
+                        dispose();
+                    } catch (IOException | FontFormatException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
             }
         });
 
-        isTeacher.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isStudent.setSelected(false);
-            }
-        });
-
-        isStudent.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                isTeacher.setSelected(false);
-            }
-        });
     }
 
     public static void main(String[] args) {
