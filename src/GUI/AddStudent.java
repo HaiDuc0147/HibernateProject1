@@ -1,12 +1,15 @@
 package GUI;
 
+import dao.ClassDao;
 import dao.LoginDao;
 import dao.StudentDao;
+import hibernate.Clazz;
 import hibernate.Login;
 import hibernate.Student;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
 
 public class AddStudent extends JDialog {
     private JPanel contentPane;
@@ -16,6 +19,7 @@ public class AddStudent extends JDialog {
     private JCheckBox isMaleCheckBox;
     private JCheckBox isFemaleCheckBox;
     private JButton thêmButton;
+    private JComboBox classField;
     private JButton buttonOK;
     private JButton buttonCancel;
 
@@ -23,9 +27,11 @@ public class AddStudent extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         this.setTitle("Thêm sinh viên");
-        this.setSize(300, 300);
+        this.setSize(300, 250);
 
-
+        List<Clazz> clazzes = ClassDao.getAllClasses();
+        for(Clazz cl: clazzes)
+            classField.addItem(cl.getClassId());
         // call onCancel() when cross is clicked
 
 
@@ -50,8 +56,16 @@ public class AddStudent extends JDialog {
                 Student s = new Student();
                 s.setStudentId(studentIdField.getText());
                 s.setStudentName(nameStudentField.getText());
-                s.setClassId(classIdField.getText());
+                Clazz c = ClassDao.getAClass((String)classField.getSelectedItem());
+                s.setClassId(c);
+
                 s.setGender(isMaleCheckBox.isSelected());
+                c.setNumberOfStudent(c.getNumberOfStudent() + 1);
+                if(isMaleCheckBox.isSelected())
+                    c.setNumberOfMale(c.getNumberOfMale() + 1);
+                else
+                    c.setNumberOfFemale(c.getNumberOfFemale() + 1);
+                ClassDao.updateAClass(c);
                 s.setCredits(0);
                 Login l = new Login();
                 l.setUsername(studentIdField.getText());

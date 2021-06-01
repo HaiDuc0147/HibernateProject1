@@ -5,7 +5,11 @@ import java.util.Objects;
 
 public class Course {
     private int id;
-    private Date studyDay;
+    private String courseId;
+
+
+
+    private String studyDay;
     private String studyTime;
     private String teacherId;
     private String classroom;
@@ -18,11 +22,18 @@ public class Course {
         this.id = id;
     }
 
-    public Date getStudyDay() {
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+    public String getStudyDay() {
         return studyDay;
     }
 
-    public void setStudyDay(Date studyDay) {
+    public void setStudyDay(String studyDay) {
         this.studyDay = studyDay;
     }
 

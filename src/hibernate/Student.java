@@ -7,16 +7,26 @@ public class Student {
     private String studentId;
     private String studentName;
     private int credits;
+    private Clazz classId;
     private boolean gender;
-    private String classId;
 
-    public String getClassId() {
+    public Clazz getClassId() {
         return classId;
     }
 
-    public void setClassId(String classId) {
+    public void setClassId(Clazz classId) {
         this.classId = classId;
     }
+
+
+
+    //public String getClassId() {
+        //return classId;
+    //}
+
+    //public void setClassId(String classId) {
+        //this.classId = classId;
+    //}
 
     public int getId() {
         return id;

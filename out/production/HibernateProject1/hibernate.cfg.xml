@@ -17,6 +17,7 @@
         <mapping resource="CourseOpen.hbm.xml"/>
         <mapping resource="CourseRegister.hbm.xml"/>
         <mapping resource="Semester.hbm.xml"/>
+        <mapping class="hibernate.Clazz"/>
 
 
         <!-- <property name="connection.username"/> -->

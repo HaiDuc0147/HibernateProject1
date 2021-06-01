@@ -29,7 +29,8 @@ public class AddSubject extends JDialog {
                 s.setSubjectName(subjectNameField.getText());
                 s.setCredit((int)creditField.getValue());
                 SubjectDao.addSubject(s);
-                JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
+                //JOptionPane.showMessageDialog(null, "Thêm môn học thành công!");
+                dispose();
             }
         });
     }

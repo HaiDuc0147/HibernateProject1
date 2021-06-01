@@ -6,12 +6,23 @@ import java.util.Objects;
 public class Semester {
     private int id;
     private String semesterName;
-    private int year;
+    private String year;
     private Date startDay;
     private Date endDay;
 
+    public Semester() {}
+
+
     public int getId() {
         return id;
+    }
+
+    public Semester(int id, String semesterName, String year, Date startDay, Date endDay) {
+        this.id = id;
+        this.semesterName = semesterName;
+        this.year = year;
+        this.startDay = startDay;
+        this.endDay = endDay;
     }
 
     public void setId(int id) {
@@ -26,11 +37,11 @@ public class Semester {
         this.semesterName = semesterName;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -56,6 +67,16 @@ public class Semester {
         if (o == null || getClass() != o.getClass()) return false;
         Semester semester = (Semester) o;
         return id == semester.id && year == semester.year && Objects.equals(semesterName, semester.semesterName) && Objects.equals(startDay, semester.startDay) && Objects.equals(endDay, semester.endDay);
+    }
+
+    @Override
+    public String toString() {
+        return "Semester{" +
+                "semesterName='" + semesterName + '\'' +
+                ", year='" + year + '\'' +
+                ", startDay=" + startDay +
+                ", endDay=" + endDay +
+                '}';
     }
 
     @Override

@@ -10,10 +10,10 @@
             <generator class="identity"/>
         </id>
         <property name="semesterName">
-            <column name="semester_name" sql-type="varchar(3)" length="3"/>
+            <column name="semester_name" sql-type="varchar(20)" length="20"/>
         </property>
         <property name="year">
-            <column name="year" sql-type="integer"/>
+            <column name="year" sql-type="varchar(9)" length="9"/>
         </property>
         <property name="startDay">
             <column name="start_day" sql-type="date"/>

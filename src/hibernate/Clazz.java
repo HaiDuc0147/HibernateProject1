@@ -1,16 +1,27 @@
 package hibernate;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Clazz {
     private String classId;
     private Integer numberOfStudent;
     private Integer numberOfMale;
     private Integer numberOfFemale;
+    //private Set<Student> students = new HashSet<Student>(0);
 
     public String getClassId() {
         return classId;
     }
+
+ //public Set<Student> getStudents() {
+ //    return students;
+ //}
+
+ //public void setStudents(Set<Student> students) {
+ //    this.students = students;
+ //}
 
     public void setClassId(String classId) {
         this.classId = classId;
@@ -39,6 +50,8 @@ public class Clazz {
     public void setNumberOfFemale(Integer numberOfFemale) {
         this.numberOfFemale = numberOfFemale;
     }
+
+    public Clazz() {}
 
     public Clazz(String classId, Integer numberOfStudent, Integer numberOfMale, Integer numberOfFemale) {
         this.classId = classId;

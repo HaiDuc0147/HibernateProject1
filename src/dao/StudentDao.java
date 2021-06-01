@@ -1,5 +1,6 @@
 package dao;
 
+import hibernate.Clazz;
 import hibernate.Student;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -31,5 +32,20 @@ public class StudentDao {
         session.save(s);
         t.commit();
         session.close();
+    }
+    public static void deleteAStudent(Student s){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            // your code
+            session.delete(s);
+            //session.flush();
+            transaction.commit();
+        } catch (Throwable t) {
+            transaction.rollback();
+            throw t;
+        } finally {
+            session.close();
+        }
     }
 }

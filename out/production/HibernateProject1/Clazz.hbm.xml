@@ -5,9 +5,10 @@
 <hibernate-mapping>
 
     <class name="hibernate.Clazz" table="class" schema="public" catalog="StudentDB">
-        <id name="classId">
+        <id name="classId" >
             <column name="class_id" sql-type="varchar(6)" length="6"/>
         </id>
+
         <property name="numberOfStudent">
             <column name="number_of_student" sql-type="integer" not-null="true"/>
         </property>

@@ -52,6 +52,8 @@ public class LoginForm extends JDialog {
                 if(isSuccessLogin){
                     try {
                         listFeature features = new listFeature();
+                        features.setSize(1000, 900);
+                        features.setLocationRelativeTo(null);
                         features.setVisible(true);
                         dispose();
                     } catch (IOException | FontFormatException ioException) {

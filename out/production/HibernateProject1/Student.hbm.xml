@@ -15,9 +15,14 @@
         <property name="studentName">
             <column name="student_name" sql-type="varchar(50)" length="50"/>
         </property>
+        <!--
         <property name="classId">
             <column name="class_id" sql-type="varchar(6)" length="6"/>
         </property>
+        //-->
+        <many-to-one class="hibernate.Clazz" name="classId" lazy="false" cascade="save-update">
+            <column name="class_id" sql-type="varchar(6)" length="6"/>
+        </many-to-one>
         <property name="credits">
             <column name="credits" sql-type="integer"/>
         </property>

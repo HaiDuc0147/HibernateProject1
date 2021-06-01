@@ -13,6 +13,7 @@ public class addClass extends JDialog {
 
     public addClass() {
         this.setTitle("Thêm lớp học");
+        this.setSize(200, 100);
         setContentPane(contentPane);
         setModal(true);
 
@@ -22,6 +23,7 @@ public class addClass extends JDialog {
                 String classId = classField.getText();
                 Clazz c = new Clazz(classId, 0, 0, 0);
                 ClassDao.insertAClass(c);
+                dispose();
             }
         });
     }

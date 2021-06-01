@@ -7,6 +7,7 @@
     <class name="hibernate.Login" table="login" schema="public" catalog="StudentDB">
         <id name="id">
             <column name="id" sql-type="integer"/>
+            <generator class="identity"/>
         </id>
         <property name="username">
             <column name="username" sql-type="varchar(50)" length="50"/>

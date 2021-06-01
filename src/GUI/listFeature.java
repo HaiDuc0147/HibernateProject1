@@ -18,16 +18,22 @@ public class listFeature extends JDialog {
     private JButton changeInformationButton;
     private JButton classInformationButton;
     private JButton logOutButton;
+    private JButton addTeacherButton;
+    private JButton addCourseButton;
+    private JButton findStudentButton;
+    private JButton showSemesterButton;
     private JButton buttonOK;
 
     public listFeature() throws IOException, FontFormatException {
-        Font font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/SVN-Journey-Bold.otf")).deriveFont(36f);
+        Font font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/SVN-Journey-Bold.otf")).deriveFont(75f);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         //register the font
         ge.registerFont(font);
 
         this.setTitle("Quản lí sinh viên");
         this.setSize(800, 900);
+        //helloField.setFont(font);
+        //helloField.setText("Xin chào " + LoginForm.usernameGlobal);
         this.setLocationRelativeTo(null);
         informationLabel.setFont(font);
         int width = 200;
@@ -86,13 +92,48 @@ public class listFeature extends JDialog {
         logOutButton.setContentAreaFilled(false);
         logOutButton.setBorderPainted(false);
 
+        ImageIcon addTeacherIcon = new ImageIcon ("img/addTeacher2.png");
+        addTeacherIcon = Utils.transformImg(addTeacherIcon, width, height);
+        addTeacherButton.setIcon(addTeacherIcon);
+
+        addTeacherButton.setOpaque(false);
+        addTeacherButton.setContentAreaFilled(false);
+        addTeacherButton.setBorderPainted(false);
+
+        ImageIcon addCourseIcon = new ImageIcon ("img/addCourse1.png");
+        addCourseIcon = Utils.transformImg(addCourseIcon, width, height);
+        addCourseButton.setIcon(addCourseIcon);
+
+        addCourseButton.setOpaque(false);
+        addCourseButton.setContentAreaFilled(false);
+        addCourseButton.setBorderPainted(false);
+
+        ImageIcon findStudentIcon = new ImageIcon ("img/findStudent.png");
+        findStudentIcon = Utils.transformImg(findStudentIcon, width, height);
+        findStudentButton.setIcon(findStudentIcon);
+
+        findStudentButton.setOpaque(false);
+        findStudentButton.setContentAreaFilled(false);
+        findStudentButton.setBorderPainted(false);
+
+        ImageIcon showSemesterIcon = new ImageIcon ("img/listSemester.png");
+        showSemesterIcon = Utils.transformImg(showSemesterIcon, width, height);
+        showSemesterButton.setIcon(showSemesterIcon);
+
+        showSemesterButton.setOpaque(false);
+        showSemesterButton.setContentAreaFilled(false);
+        showSemesterButton.setBorderPainted(false);
+
+
 
 
         addStudentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AddStudent addStudent = new AddStudent();
+                addStudent.setLocationRelativeTo(null);
                 addStudent.setVisible(true);
+
             }
         });
         addSubjectButton.addActionListener(new ActionListener() {
@@ -124,8 +165,6 @@ public class listFeature extends JDialog {
                 informationLabel.setText("");
             }
         });
-        addStudentButton.addMouseListener(new MouseAdapter() {
-        });
         showSubjectButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -151,7 +190,7 @@ public class listFeature extends JDialog {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                addSubjectButton.setBorderPainted(true);
+                addSubjectButton.setBorderPainted(false);
                 informationLabel.setText("");
             }
         });
@@ -205,6 +244,80 @@ public class listFeature extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+            }
+        });
+        addTeacherButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                addTeacherButton.setBorderPainted(true);
+                informationLabel.setText("Thêm giáo vụ");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                addTeacherButton.setBorderPainted(false);
+                informationLabel.setText("");
+            }
+        });
+        addCourseButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                addCourseButton.setBorderPainted(true);
+                informationLabel.setText("Thêm học phần mới");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                addCourseButton.setBorderPainted(false);
+                informationLabel.setText("");
+            }
+        });
+        addTeacherButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addTeacher addTeacherForm = new addTeacher();
+                addTeacherForm.setVisible(true);
+            }
+        });
+        findStudentButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                findStudentButton.setBorderPainted(true);
+                informationLabel.setText("Tìm kiếm sinh viên");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                findStudentButton.setBorderPainted(false);
+                informationLabel.setText("");
+            }
+        });
+        showSemesterButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                showSemesterButton.setBorderPainted(true);
+                informationLabel.setText("Danh sách học kỳ");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                showSemesterButton.setBorderPainted(false);
+                informationLabel.setText("");
+            }
+        });
+        classInformationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showClasses showClassesForm = new showClasses();
+                showClassesForm.setVisible(true);
+            }
+        });
+        showSemesterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowSemesters showSemesters = new ShowSemesters();
+                showSemesters.setLocationRelativeTo(null);
+                showSemesters.setVisible(true);
             }
         });
     }

@@ -9,14 +9,17 @@
             <column name="id" sql-type="integer"/>
             <generator class="identity"/>
         </id>
+        <property name="courseId">
+            <column name="course_id" sql-type="varchar(10)" length="10"/>
+        </property>
         <property name="studyDay">
-            <column name="study_day" sql-type="date"/>
+            <column name="study_day" sql-type="varchar(10)" length="10"/>
         </property>
         <property name="studyTime">
-            <column name="study_time" sql-type="varchar(5)" length="5"/>
+            <column name="study_time" sql-type="varchar(5)" length="10"/>
         </property>
         <property name="teacherId">
-            <column name="teacher_id" sql-type="varchar(10)" length="10"/>
+            <column name="teacher_id" sql-type="varchar(10)" length="50"/>
         </property>
         <property name="classroom">
             <column name="classroom" sql-type="varchar(6)" length="6"/>

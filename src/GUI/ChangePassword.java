@@ -40,6 +40,7 @@ public class ChangePassword extends JDialog {
                     l.setRole(true);
                     LoginDao.updateAccount(l);
                     JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công");
+                    LoginForm.passwordGlobal = newPassword;
                     dispose();
                 }
 
