@@ -7,11 +7,9 @@ public class Course {
     private int id;
     private String courseId;
 
-
-
     private String studyDay;
     private String studyTime;
-    private String teacherId;
+    private String teacherName;
     private String classroom;
 
     public int getId() {
@@ -45,12 +43,12 @@ public class Course {
         this.studyTime = studyTime;
     }
 
-    public String getTeacherId() {
-        return teacherId;
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
     public String getClassroom() {
@@ -66,11 +64,11 @@ public class Course {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Course course = (Course) o;
-        return id == course.id && Objects.equals(studyDay, course.studyDay) && Objects.equals(studyTime, course.studyTime) && Objects.equals(teacherId, course.teacherId) && Objects.equals(classroom, course.classroom);
+        return id == course.id && Objects.equals(studyDay, course.studyDay) && Objects.equals(studyTime, course.studyTime) && Objects.equals(teacherName, course.teacherName) && Objects.equals(classroom, course.classroom);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, studyDay, studyTime, teacherId, classroom);
+        return Objects.hash(id, studyDay, studyTime, teacherName, classroom);
     }
 }

@@ -7,6 +7,7 @@ public class CourseOpen {
     private int id;
     private Date startDay;
     private Date endDay;
+    private String courseId;
 
     public int getId() {
         return id;
@@ -32,16 +33,24 @@ public class CourseOpen {
         this.endDay = endDay;
     }
 
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseOpen that = (CourseOpen) o;
-        return id == that.id && Objects.equals(startDay, that.startDay) && Objects.equals(endDay, that.endDay);
+        return id == that.id && Objects.equals(startDay, that.startDay) && Objects.equals(endDay, that.endDay) && Objects.equals(courseId, that.courseId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startDay, endDay);
+        return Objects.hash(id, startDay, endDay, courseId);
     }
 }

@@ -18,8 +18,8 @@
         <property name="studyTime">
             <column name="study_time" sql-type="varchar(5)" length="10"/>
         </property>
-        <property name="teacherId">
-            <column name="teacher_id" sql-type="varchar(10)" length="50"/>
+        <property name="teacherName">
+            <column name="teacher_name" sql-type="varchar(10)" length="50"/>
         </property>
         <property name="classroom">
             <column name="classroom" sql-type="varchar(6)" length="6"/>

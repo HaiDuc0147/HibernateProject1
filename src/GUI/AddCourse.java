@@ -1,8 +1,10 @@
 package GUI;
 
 import dao.CourseDao;
+import dao.CourseOpenDao;
 import dao.SubjectDao;
 import hibernate.Course;
+import hibernate.CourseOpen;
 import hibernate.Subject;
 
 import javax.swing.*;
@@ -52,7 +54,6 @@ public class AddCourse extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for(Subject s: subjects) {
-
                     if (s.getSubjectName().equals(subjectNameCombobox.getSelectedItem())) {
                         courseIdComboBox.setSelectedItem(s.getSubjectId());
                     }
@@ -67,8 +68,19 @@ public class AddCourse extends JDialog {
                 c.setStudyDay((String)dateCombobox.getSelectedItem());
                 c.setClassroom(roomField.getText());
                 c.setStudyTime((String)timeComboBox.getSelectedItem());
-                c.setTeacherId(teacherField.getText());
+                c.setTeacherName(teacherField.getText());
                 CourseDao.insertACourse(c);
+
+
+                if(AddCourseSession.startDaySessionGlobal == null || AddCourseSession.endDaySessionGlobal == null)
+                    JOptionPane.showMessageDialog(null, "Bạn chưa mở kì đăng ký học phần");
+                else {
+                    CourseOpen co = new CourseOpen();
+                    co.setCourseId(c.getCourseId());
+                    co.setStartDay(AddCourseSession.startDaySessionGlobal);
+                    co.setEndDay(AddCourseSession.endDaySessionGlobal);
+                    CourseOpenDao.insertACourseOpen(co);
+                }
             }
         });
     }
