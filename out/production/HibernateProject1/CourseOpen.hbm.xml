@@ -5,8 +5,8 @@
 <hibernate-mapping>
 
     <class name="hibernate.CourseOpen" table="course_open" schema="public" catalog="StudentDB">
-        <id name="id">
-            <column name="id" sql-type="integer"/>
+        <id name="ids">
+            <column name="ids" sql-type="integer"/>
             <generator class="identity"/>
         </id>
         <property name="startDay">
@@ -15,8 +15,11 @@
         <property name="endDay">
             <column name="end_day" sql-type="date"/>
         </property>
-        <property name="courseId">
+        <many-to-one class="hibernate.Semester" name="id" lazy="false" cascade="save-update">
+            <column name="id" sql-type="int"/>
+        </many-to-one>
+        <many-to-one class="hibernate.Subject" name="courseId" lazy="false" cascade="save-update">
             <column name="course_id" sql-type="varchar(10)" length="10"/>
-        </property>
+        </many-to-one>
     </class>
 </hibernate-mapping>

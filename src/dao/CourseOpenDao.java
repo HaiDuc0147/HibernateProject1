@@ -2,7 +2,6 @@ package dao;
 
 import hibernate.Clazz;
 import hibernate.CourseOpen;
-import hibernate.Student;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -30,7 +29,7 @@ public class CourseOpenDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<CourseOpen> courseOpens = null;
         try{
-            final String hql = "select c from Clazz c";
+            final String hql = "select c from CourseOpen c";
             Query query = session.createQuery(hql);
             courseOpens = query.list();
         }

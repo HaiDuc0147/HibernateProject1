@@ -323,9 +323,12 @@ public class listFeature extends JDialog {
         addCourseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                showCourses showCoursesForm = new showCourses();
+                showCoursesForm.setSize(300, 300);
+                showCoursesForm.setVisible(true);
             }
         });
+
     }
 
     public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException, FontFormatException {

@@ -64,7 +64,10 @@ public class AddCourse extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Course c = new Course();
-                c.setCourseId((String)courseIdComboBox.getSelectedItem());
+                Subject s = new Subject();
+                s.setSubjectId((String)courseIdComboBox.getSelectedItem());
+                s.setSubjectName(SubjectDao.getASubject(s.getSubjectId()).getSubjectName());
+                c.setCourseId(s);
                 c.setStudyDay((String)dateCombobox.getSelectedItem());
                 c.setClassroom(roomField.getText());
                 c.setStudyTime((String)timeComboBox.getSelectedItem());
@@ -79,6 +82,7 @@ public class AddCourse extends JDialog {
                     co.setCourseId(c.getCourseId());
                     co.setStartDay(AddCourseSession.startDaySessionGlobal);
                     co.setEndDay(AddCourseSession.endDaySessionGlobal);
+                    co.setId(ShowSemesters.chosenSemesterGlobal);
                     CourseOpenDao.insertACourseOpen(co);
                 }
             }

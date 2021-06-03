@@ -28,7 +28,7 @@ public class CourseDao {
         session.close();
     }
 
-    public static List<Course> getAllClasses() {
+    public static List<Course> getAllCourses() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<Course> courses = null;
         try {

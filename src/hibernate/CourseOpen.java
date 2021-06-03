@@ -4,17 +4,18 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class CourseOpen {
-    private int id;
+    private int ids;
     private Date startDay;
     private Date endDay;
-    private String courseId;
+    private Subject courseId;
+    private Semester id;
 
-    public int getId() {
-        return id;
+    public int getIds() {
+        return ids;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIds(int ids) {
+        this.ids = ids;
     }
 
     public Date getStartDay() {
@@ -33,12 +34,20 @@ public class CourseOpen {
         this.endDay = endDay;
     }
 
-    public String getCourseId() {
+    public Subject getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Subject courseId) {
         this.courseId = courseId;
+    }
+
+    public Semester getId() {
+        return id;
+    }
+
+    public void setId(Semester id) {
+        this.id = id;
     }
 
     @Override
@@ -46,11 +55,11 @@ public class CourseOpen {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseOpen that = (CourseOpen) o;
-        return id == that.id && Objects.equals(startDay, that.startDay) && Objects.equals(endDay, that.endDay) && Objects.equals(courseId, that.courseId);
+        return ids == that.ids && id == that.id && Objects.equals(startDay, that.startDay) && Objects.equals(endDay, that.endDay) && Objects.equals(courseId, that.courseId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startDay, endDay, courseId);
+        return Objects.hash(ids, startDay, endDay, courseId, id);
     }
 }

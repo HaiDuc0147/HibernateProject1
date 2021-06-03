@@ -9,9 +9,9 @@
             <column name="id" sql-type="integer"/>
             <generator class="identity"/>
         </id>
-        <property name="courseId">
+        <many-to-one class="hibernate.Subject" name="courseId" lazy="false" cascade="save-update">
             <column name="course_id" sql-type="varchar(10)" length="10"/>
-        </property>
+        </many-to-one>
         <property name="studyDay">
             <column name="study_day" sql-type="varchar(10)" length="10"/>
         </property>
