@@ -21,9 +21,12 @@ public class AddCourse extends JDialog {
     private JTextField roomField;
     private JTextField teacherField;
     private JButton addButton;
+    private JTextField slotField;
     private JButton buttonOK;
 
     public AddCourse() {
+        this.setTitle("Thêm học phần");
+        this.setSize(500, 400);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -72,6 +75,8 @@ public class AddCourse extends JDialog {
                 c.setClassroom(roomField.getText());
                 c.setStudyTime((String)timeComboBox.getSelectedItem());
                 c.setTeacherName(teacherField.getText());
+                int slot = Integer.parseInt(slotField.getText());
+                c.setSlot(slot);
                 CourseDao.insertACourse(c);
 
 
@@ -79,10 +84,10 @@ public class AddCourse extends JDialog {
                     JOptionPane.showMessageDialog(null, "Bạn chưa mở kì đăng ký học phần");
                 else {
                     CourseOpen co = new CourseOpen();
-                    co.setCourseId(c.getCourseId());
+                    co.setCourseId(c);
                     co.setStartDay(AddCourseSession.startDaySessionGlobal);
                     co.setEndDay(AddCourseSession.endDaySessionGlobal);
-                    co.setId(ShowSemesters.chosenSemesterGlobal);
+                    co.setSemesterId(ShowSemesters.chosenSemesterGlobal);
                     CourseOpenDao.insertACourseOpen(co);
                 }
             }

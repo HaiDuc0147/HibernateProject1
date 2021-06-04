@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.List;
 
 public class AddSemester extends JDialog {
     private JPanel contentPane;
@@ -69,10 +70,14 @@ public class AddSemester extends JDialog {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 Semester s = new Semester();
                 s.setSemesterName((String)semesterName.getSelectedItem());
                 Date startDate = new Date((int)startYear.getSelectedItem() - 1900, (int)startMonth.getSelectedItem() - 1, (int)startDay.getSelectedItem());
                 Date endDate = new Date((int)endYear.getSelectedItem() - 1900, (int)endMonth.getSelectedItem() - 1, (int)endDay.getSelectedItem());
+                List<Semester> semesters = SemesterDao.getAllSemester();
+
+
                 if(endDate.after(startDate)) {
                     s.setStartDay(startDate);
                     s.setEndDay(endDate);
@@ -82,6 +87,12 @@ public class AddSemester extends JDialog {
                     else
                         year = String.valueOf((int) startYear.getSelectedItem()) + "-" + String.valueOf((int) endYear.getSelectedItem() + 1);
                     s.setYear(year);
+                    for(Semester se: semesters){
+                        if(se.toString().equals(s.toString())) {
+                            JOptionPane.showMessageDialog(null, "Học kì này đã tồn tại!");
+                            return;
+                        }
+                    }
                     SemesterDao.insertASemester(s);
                     dispose();
                 }

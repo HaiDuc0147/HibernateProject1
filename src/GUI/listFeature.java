@@ -100,7 +100,7 @@ public class listFeature extends JDialog {
         addTeacherButton.setContentAreaFilled(false);
         addTeacherButton.setBorderPainted(false);
 
-        ImageIcon addCourseIcon = new ImageIcon ("img/addCourse1.png");
+        ImageIcon addCourseIcon = new ImageIcon ("img/courseList3.png");
         addCourseIcon = Utils.transformImg(addCourseIcon, width, height);
         addCourseButton.setIcon(addCourseIcon);
 
@@ -263,7 +263,7 @@ public class listFeature extends JDialog {
             @Override
             public void mouseEntered(MouseEvent e) {
                 addCourseButton.setBorderPainted(true);
-                informationLabel.setText("Thêm học phần mới");
+                informationLabel.setText("Danh sách học phần");
             }
 
             @Override
@@ -323,15 +323,23 @@ public class listFeature extends JDialog {
         addCourseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showCourses showCoursesForm = new showCourses();
-                showCoursesForm.setSize(300, 300);
-                showCoursesForm.setVisible(true);
+                if(ShowSemesters.chosenSemesterGlobal == null){
+                    JOptionPane.showMessageDialog(null, "Bạn chưa chọn kì hiện tại!");
+                }
+                else {
+                    showCourses showCoursesForm = new showCourses();
+                    //showCoursesForm.setSize(300, 300);
+                    showCoursesForm.setVisible(true);
+                }
             }
         });
 
     }
 
     public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException, FontFormatException {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.SystemLookAndFeel");
+        } catch(Exception ignored){}
         listFeature dialog = new listFeature();
 
         dialog.pack();

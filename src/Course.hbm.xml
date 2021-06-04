@@ -24,5 +24,8 @@
         <property name="classroom">
             <column name="classroom" sql-type="varchar(6)" length="6"/>
         </property>
+        <property name="slot">
+            <column name="slot" sql-type="integer"/>
+        </property>
     </class>
 </hibernate-mapping>

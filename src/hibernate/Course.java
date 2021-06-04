@@ -10,6 +10,7 @@ public class Course {
     private String studyTime;
     private String teacherName;
     private String classroom;
+    private int slot;
 
     public int getId() {
         return id;
@@ -56,6 +57,24 @@ public class Course {
 
     public void setClassroom(String classroom) {
         this.classroom = classroom;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId=" + courseId +
+                ", studyDay='" + studyDay + '\'' +
+                ", studyTime='" + studyTime + '\'' +
+                ", teacherName='" + teacherName + '\'' +
+                '}';
     }
 
     @Override

@@ -1,7 +1,11 @@
 package GUI;
 
+import dao.CourseDao;
+import dao.CourseOpenDao;
 import dao.SemesterDao;
 import dao.SubjectDao;
+import hibernate.Course;
+import hibernate.CourseOpen;
 import hibernate.Semester;
 import hibernate.Subject;
 
@@ -27,7 +31,7 @@ public class ShowSemesters extends JDialog {
         setContentPane(contentPane);
         setModal(true);
 
-        this.setTitle("Danh sách môn học");
+        this.setTitle("Danh sách học kỳ");
         this.setSize(500, 700);
         setContentPane(contentPane);
         setModal(true);
@@ -108,6 +112,15 @@ public class ShowSemesters extends JDialog {
                             if(se.toString().equals(s.toString()))
                                 s.setId(se.getId());
                         }
+                        List<CourseOpen> courseOpens = CourseOpenDao.getAllCourseOpen();
+                        List<Course> courses = CourseDao.getAllCourses();
+                        for(CourseOpen c: courseOpens)
+                            if(c.getSemesterId().getId() == s.getId()){
+                                for(Course course: courses)
+                                    if(c.getCourseId().toString().equals(course.toString()))
+                                        CourseDao.deleteACourse(course);
+                                CourseOpenDao.deleteACourseOpen(c);
+                            }
                         SemesterDao.deleteASemester(s);
                         //SemesterDao.deleteASemester(new Semester(semesterName, semesterYear, startDay, endDay));
                         model.removeRow(semesterTable.getSelectedRow());

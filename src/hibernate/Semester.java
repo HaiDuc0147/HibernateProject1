@@ -74,8 +74,6 @@ public class Semester {
         return "Semester{" +
                 "semesterName='" + semesterName + '\'' +
                 ", year='" + year + '\'' +
-                ", startDay=" + startDay +
-                ", endDay=" + endDay +
                 '}';
     }
 

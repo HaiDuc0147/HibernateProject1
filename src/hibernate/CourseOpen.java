@@ -4,18 +4,18 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class CourseOpen {
-    private int ids;
+    private int id;
     private Date startDay;
     private Date endDay;
-    private Subject courseId;
-    private Semester id;
+    private Course courseId;
+    private Semester semesterId;
 
-    public int getIds() {
-        return ids;
+    public int getId() {
+        return id;
     }
 
-    public void setIds(int ids) {
-        this.ids = ids;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getStartDay() {
@@ -34,20 +34,20 @@ public class CourseOpen {
         this.endDay = endDay;
     }
 
-    public Subject getCourseId() {
+    public Course getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(Subject courseId) {
+    public void setCourseId(Course courseId) {
         this.courseId = courseId;
     }
 
-    public Semester getId() {
-        return id;
+    public Semester getSemesterId() {
+        return semesterId;
     }
 
-    public void setId(Semester id) {
-        this.id = id;
+    public void setSemesterId(Semester semesterId) {
+        this.semesterId = semesterId;
     }
 
     @Override
@@ -55,11 +55,21 @@ public class CourseOpen {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseOpen that = (CourseOpen) o;
-        return ids == that.ids && id == that.id && Objects.equals(startDay, that.startDay) && Objects.equals(endDay, that.endDay) && Objects.equals(courseId, that.courseId);
+        return id == that.id && courseId == that.courseId && semesterId == that.semesterId && Objects.equals(startDay, that.startDay) && Objects.equals(endDay, that.endDay);
+    }
+
+    @Override
+    public String toString() {
+        return "CourseOpen{" +
+                "startDay=" + startDay +
+                ", endDay=" + endDay +
+                ", courseId=" + courseId +
+                ", semesterId=" + semesterId +
+                '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ids, startDay, endDay, courseId, id);
+        return Objects.hash(id, startDay, endDay, courseId, semesterId);
     }
 }
