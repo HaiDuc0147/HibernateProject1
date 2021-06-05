@@ -8,7 +8,8 @@ import hibernate.Login;
 import hibernate.Student;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class AddStudent extends JDialog {
@@ -28,13 +29,10 @@ public class AddStudent extends JDialog {
         setModal(true);
         this.setTitle("Thêm sinh viên");
         this.setSize(300, 250);
-
         List<Clazz> clazzes = ClassDao.getAllClasses();
         for(Clazz cl: clazzes)
             classField.addItem(cl.getClassId());
         // call onCancel() when cross is clicked
-
-
 
         // call onCancel() on ESCAPE
 

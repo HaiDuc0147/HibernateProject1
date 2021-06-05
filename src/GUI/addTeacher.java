@@ -15,18 +15,24 @@ public class addTeacher extends JDialog {
     private JTextField idField;
     private JButton addButton;
     private JTextField nameField;
+    private JTextField citizenIdField;
+    private JTextField addressField;
+    private JTextField phoneNumberField;
 
     public addTeacher() {
         setContentPane(contentPane);
         setModal(true);
         this.setTitle("Thông tin giáo vụ");
-        this.setSize(250, 150);
+        this.setSize(500, 400);
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Teacher teacher = new Teacher();
                 teacher.setTeacherId(idField.getText());
                 teacher.setTeacherName(nameField.getText());
+                teacher.setAddress(addressField.getText());
+                teacher.setCitizenId(citizenIdField.getText());
+                teacher.setPhoneNumber(phoneNumberField.getText());
                 TeacherDao.insertATeacher(teacher);
                 Login login = new Login();
                 String username = Utils.formatNameToUsername(nameField.getText());

@@ -11,5 +11,14 @@
         <property name="teacherName">
             <column name="teacher_name" sql-type="varchar(50)" length="50"/>
         </property>
+        <property name="phoneNumber">
+            <column name="phone_number" sql-type="varchar(10)" length="10"/>
+        </property>
+        <property name="address">
+            <column name="address" sql-type="varchar(50)" length="50"/>
+        </property>
+        <property name="citizenId">
+            <column name="citizen_id" sql-type="varchar(12)" length="12"/>
+        </property>
     </class>
 </hibernate-mapping>

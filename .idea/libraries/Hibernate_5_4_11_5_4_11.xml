@@ -21,6 +21,7 @@
       <root url="jar://$PROJECT_DIR$/lib/stax-ex-1.8.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/txw2-2.3.1.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/postgresql-42.2.20.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/V3/syntheticaBlueLight.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,10 +1,8 @@
 package GUI;
 
-import dao.ClassDao;
 import dao.CourseDao;
 import dao.CourseOpenDao;
 import dao.SubjectDao;
-import hibernate.Clazz;
 import hibernate.Course;
 import hibernate.CourseOpen;
 import hibernate.Subject;
@@ -40,22 +38,22 @@ public class showCourses extends JDialog {
         setModal(true);
         List<CourseOpen> courseOpen = CourseOpenDao.getAllCourseOpen();
         List<CourseOpen> courseOpens = new ArrayList<>();
-        HashSet<String> courseSessions= new HashSet<>();
+        HashSet<String> courseSessions = new HashSet<>();
         DefaultListModel modelSession = new DefaultListModel();
         sessionList.setModel(modelSession);
         for (CourseOpen c : courseOpen) {
-            if (c.getSemesterId().getId() == ShowSemesters.chosenSemesterGlobal.getId()){
+            if (c.getSemesterId().getId() == ShowSemesters.chosenSemesterGlobal.getId()) {
                 courseSessions.add(String.valueOf(c.getStartDay()) + " đến " + String.valueOf(c.getEndDay()));
                 courseOpens.add(c);
             }
         }
-        for (String courseSession: courseSessions){
+        for (String courseSession : courseSessions) {
             System.out.println(courseSession);
             modelSession.addElement(courseSession);
         }
         int size = courseOpens.size();
         System.out.println(size);
-        String[] columnNames = {"Mã Học Phần", "Tên Học Phần","Ngày học", "Ca học", "Phòng học", "Slot tối đa",  "Giáo viên giảng dạy",
+        String[] columnNames = {"Mã Học Phần", "Tên Học Phần", "Ngày học", "Ca học", "Phòng học", "Slot tối đa", "Giáo viên giảng dạy",
                 "Ngày bắt đầu đăng kí", "Ngày kết thúc đăng kí"};
         String[][] data = new String[size][9];
         DefaultTableModel model = (DefaultTableModel) courseTable.getModel();
@@ -81,6 +79,11 @@ public class showCourses extends JDialog {
             for (int x = 0; x < columnNames.length; x++) {
                 courseTable.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
             }
+            courseTable.setModel(model);
+            /**
+             * additional code.
+             **/
+            model.fireTableDataChanged();
         }
 
         addCourseSessionButton.addActionListener(new ActionListener() {
@@ -88,7 +91,8 @@ public class showCourses extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 AddCourseSession addCourseSession = new AddCourseSession();
                 addCourseSession.setVisible(true);
-                courseTable.repaint();
+                //courseTable.repaint();
+
             }
         });
         addCourseButton.addActionListener(new ActionListener() {
@@ -96,6 +100,54 @@ public class showCourses extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 AddCourse addCourse = new AddCourse();
                 addCourse.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Thêm học phần thành công!");
+                //addCourse.removeAll();
+                //addCourse.validate();
+                //addCourse.repaint();
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+                List<CourseOpen> courseOpen1 = CourseOpenDao.getAllCourseOpen();
+                List<CourseOpen> courseOpens1 = new ArrayList<>();
+                sessionList.setModel(modelSession);
+
+                for (CourseOpen c : courseOpen1) {
+                    if (c.getSemesterId().getId() == ShowSemesters.chosenSemesterGlobal.getId()) {
+                        courseSessions.add(String.valueOf(c.getStartDay()) + " đến " + String.valueOf(c.getEndDay()));
+                        courseOpens1.add(c);
+                    }
+                }
+                System.out.println(modelSession.size());
+                for (String courseSession : courseSessions) {
+                    //System.out.println(courseSession);
+                    boolean isDuplicate = false;
+                    for (int i = 0; i < modelSession.size(); i++)
+                        if (String.valueOf(modelSession.getElementAt(i)).equals(courseSession)){
+                            isDuplicate = true;
+                            break;
+                        }
+                    if(!isDuplicate)
+                        modelSession.addElement(courseSession);
+                }
+                int size1 = courseOpens1.size();
+                String[][] data1 = new String[size1][9];
+                System.out.println(size1);
+                if (size1 > 0) {
+                    for (int i = 0; i < size1; i++) {
+                        data1[i][0] = courseOpens1.get(i).getCourseId().getCourseId().getSubjectId();
+                        data1[i][1] = courseOpens1.get(i).getCourseId().getCourseId().getSubjectName();
+                        data1[i][2] = courseOpens1.get(i).getCourseId().getStudyDay();
+                        data1[i][3] = courseOpens1.get(i).getCourseId().getStudyTime();
+                        data1[i][4] = courseOpens1.get(i).getCourseId().getClassroom();
+                        data1[i][5] = String.valueOf(courseOpens1.get(i).getCourseId().getSlot());
+                        data1[i][6] = courseOpens1.get(i).getCourseId().getTeacherName();
+                        data1[i][7] = String.valueOf(courseOpens1.get(i).getStartDay());
+                        data1[i][8] = String.valueOf(courseOpens1.get(i).getEndDay());
+                    }
+                    for (int i = 0; i < size1; i++) {
+                        model.addRow(data1[i]);
+                    }
+                }
             }
         });
         deleteButton.addActionListener(new ActionListener() {
@@ -127,12 +179,12 @@ public class showCourses extends JDialog {
                         co.setEndDay(Date.valueOf(courseTable.getModel().getValueAt(row, 8).toString()));
                         co.setSemesterId(ShowSemesters.chosenSemesterGlobal);
                         List<CourseOpen> courseOpenList = CourseOpenDao.getAllCourseOpen();
-                        for(CourseOpen courseOpen: courseOpenList)
-                            if(co.toString().equals(courseOpen.toString()))
+                        for (CourseOpen courseOpen : courseOpenList)
+                            if (co.toString().equals(courseOpen.toString()))
                                 CourseOpenDao.deleteACourseOpen(courseOpen);
                         List<Course> courses = CourseDao.getAllCourses();
-                        for(Course course: courses)
-                            if(c.toString().equals(course.toString()))
+                        for (Course course : courses)
+                            if (c.toString().equals(course.toString()))
                                 CourseDao.deleteACourse(course);
 
                         //c.set
@@ -146,6 +198,9 @@ public class showCourses extends JDialog {
                 } else {
                     JOptionPane.showMessageDialog(null, "Bạn chưa chọn học phần cần xóa");
                 }
+                courseTable.removeAll();
+                courseTable.validate();
+                courseTable.repaint();
             }
         });
     }

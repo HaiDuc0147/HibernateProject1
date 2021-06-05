@@ -32,7 +32,7 @@ public class Login {
         this.password = password;
     }
 
-    public boolean isRole() {
+    public boolean getRole() {
         return role;
     }
 
@@ -46,6 +46,15 @@ public class Login {
         if (o == null || getClass() != o.getClass()) return false;
         Login login = (Login) o;
         return id == login.id && role == login.role && Objects.equals(username, login.username) && Objects.equals(password, login.password);
+    }
+
+    @Override
+    public String toString() {
+        return "Login{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 
     @Override

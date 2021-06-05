@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class listFeature extends JDialog {
     private JPanel contentPane;
@@ -20,7 +19,7 @@ public class listFeature extends JDialog {
     private JButton logOutButton;
     private JButton addTeacherButton;
     private JButton addCourseButton;
-    private JButton findStudentButton;
+    private JButton seeInformationButton;
     private JButton showSemesterButton;
     private JButton buttonOK;
 
@@ -108,13 +107,13 @@ public class listFeature extends JDialog {
         addCourseButton.setContentAreaFilled(false);
         addCourseButton.setBorderPainted(false);
 
-        ImageIcon findStudentIcon = new ImageIcon ("img/findStudent.png");
-        findStudentIcon = Utils.transformImg(findStudentIcon, width, height);
-        findStudentButton.setIcon(findStudentIcon);
+        ImageIcon seeInformationIcon = new ImageIcon ("img/seeInformation3.png");
+        seeInformationIcon = Utils.transformImg(seeInformationIcon, width, height);
+        seeInformationButton.setIcon(seeInformationIcon);
 
-        findStudentButton.setOpaque(false);
-        findStudentButton.setContentAreaFilled(false);
-        findStudentButton.setBorderPainted(false);
+        seeInformationButton.setOpaque(false);
+        seeInformationButton.setContentAreaFilled(false);
+        seeInformationButton.setBorderPainted(false);
 
         ImageIcon showSemesterIcon = new ImageIcon ("img/listSemester.png");
         showSemesterIcon = Utils.transformImg(showSemesterIcon, width, height);
@@ -250,7 +249,7 @@ public class listFeature extends JDialog {
             @Override
             public void mouseEntered(MouseEvent e) {
                 addTeacherButton.setBorderPainted(true);
-                informationLabel.setText("Thêm giáo vụ");
+                informationLabel.setText("Danh sách giáo vụ");
             }
 
             @Override
@@ -275,20 +274,20 @@ public class listFeature extends JDialog {
         addTeacherButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addTeacher addTeacherForm = new addTeacher();
-                addTeacherForm.setVisible(true);
+                showListTeacher showListTeacherForm = new showListTeacher();
+                showListTeacherForm.setVisible(true);
             }
         });
-        findStudentButton.addMouseListener(new MouseAdapter() {
+        seeInformationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                findStudentButton.setBorderPainted(true);
-                informationLabel.setText("Tìm kiếm sinh viên");
+                seeInformationButton.setBorderPainted(true);
+                informationLabel.setText("Thông tin cá nhân");
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                findStudentButton.setBorderPainted(false);
+                seeInformationButton.setBorderPainted(false);
                 informationLabel.setText("");
             }
         });
@@ -334,11 +333,19 @@ public class listFeature extends JDialog {
             }
         });
 
+        seeInformationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showTeacherInformation showTeacherInformationForm = new showTeacherInformation();
+                showTeacherInformationForm.setLocationRelativeTo(null);
+                showTeacherInformationForm.setVisible(true);
+            }
+        });
     }
 
     public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException, FontFormatException {
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.SystemLookAndFeel");
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.CrossPlatformLookAndFeel");
         } catch(Exception ignored){}
         listFeature dialog = new listFeature();
 
