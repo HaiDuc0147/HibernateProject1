@@ -1,8 +1,5 @@
 package dao;
 
-import hibernate.Clazz;
-import hibernate.Login;
-import hibernate.Student;
 import hibernate.Subject;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,6 +7,8 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import utils.HibernateUtil;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectDao {
@@ -82,5 +81,35 @@ public class SubjectDao {
             session.close();
         }
         return true;
+    }
+    public static List<Subject> search(String keyword) throws SQLException {
+        List<Subject> subjects = new ArrayList<>();
+        String host="localhost";
+        String port="5432";
+        String dbname="StudentDB";
+        String user="postgres";
+        String pass="zxcvbnmA8";
+        String dburl = "jdbc:postgresql://"+host+":"+port+"/"+dbname+"?loggerLevel=OFF";
+        Connection con = DriverManager.getConnection(dburl, "postgres", "zxcvbnmA8");
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM subject WHERE subject_name LIKE ? or subject_id LIKE ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, "%" + keyword + "%");
+        ps.setString(2, "%" + keyword + "%");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            String subjectId = rs.getString("subject_id");
+            int credit = rs.getInt("credit");
+            String subjectName = rs.getString("subject_name");
+            Subject s = new Subject(subjectId, subjectName, credit);
+            subjects.add(s);
+        }
+        return subjects;
+    }
+    public static void main(String[] args) throws SQLException {
+        List<Subject> subjects = SubjectDao.search("Hệ thống");
+        for(Subject s: subjects){
+            System.out.println(s.getSubjectName());
+        }
     }
 }

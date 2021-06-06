@@ -13,7 +13,7 @@ public class UpdateSubject extends JDialog {
     private JSpinner subjectCreditsField;
     private JLabel subjectIdField;
     private JButton changeButton;
-    public static String subjectNameGlobal;
+    //public static String subjectNameGlobal;
     public static int creditsGlobal;
 
     public UpdateSubject(){
@@ -22,13 +22,13 @@ public class UpdateSubject extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         subjectIdField.setText("Mã môn: " + showSubject.subjectIdGlobal);
-
+        subjectNameField.setText(showSubject.subjectNameGlobal);
         changeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                subjectNameGlobal = subjectNameField.getText();
+                showSubject.subjectNameGlobal = subjectNameField.getText();
                 creditsGlobal = (int)subjectCreditsField.getValue();
-                SubjectDao.updateASubject(new Subject(showSubject.subjectIdGlobal, subjectNameGlobal, creditsGlobal));
+                SubjectDao.updateASubject(new Subject(showSubject.subjectIdGlobal, showSubject.subjectNameGlobal, creditsGlobal));
                 JOptionPane.showMessageDialog(null, "Cập nhập thành công!");
                 dispose();
             }

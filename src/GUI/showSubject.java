@@ -1,14 +1,13 @@
 package GUI;
 
-import dao.ClassDao;
 import dao.SubjectDao;
-import hibernate.Clazz;
 import hibernate.Subject;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 public class showSubject extends JDialog {
@@ -17,8 +16,10 @@ public class showSubject extends JDialog {
     private JButton deleteButton;
     private JButton addButton;
     private JButton updateButton;
+    private JTextField searchField;
+    private JButton searchButton;
     public static String subjectIdGlobal;
-
+    public static String subjectNameGlobal;
     public showSubject() {
         this.setTitle("Danh sách môn học");
         this.setSize(500, 700);
@@ -89,15 +90,44 @@ public class showSubject extends JDialog {
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int column = 0;
+
                 int row = Subjects.getSelectedRow();
-                subjectIdGlobal = Subjects.getModel().getValueAt(row, column).toString();
+                subjectIdGlobal = Subjects.getModel().getValueAt(row, 0).toString();
+                subjectNameGlobal = Subjects.getModel().getValueAt(row, 1).toString();
+                System.out.println(subjectNameGlobal);
                 UpdateSubject updateSubject = new UpdateSubject();
                 updateSubject.setLocationRelativeTo(null);
                 updateSubject.setVisible(true);
                 DefaultTableModel model = (DefaultTableModel) Subjects.getModel();
-                model.setValueAt((String)UpdateSubject.subjectNameGlobal, Subjects.getSelectedRow(), 1);
+                model.setValueAt((String)showSubject.subjectNameGlobal, Subjects.getSelectedRow(), 1);
                 model.setValueAt((int)UpdateSubject.creditsGlobal, Subjects.getSelectedRow(), 2);
+            }
+        });
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    List<Subject> subjects1 = SubjectDao.search(searchField.getText());
+                    while (model.getRowCount() > 0) {
+                        model.removeRow(0);
+                    }
+                    int size1 = subjects1.size();
+                    String[][] data1 = new String[size1][3];
+                    System.out.println(size1);
+                    if (size1 > 0) {
+                        for (int i = 0; i < size1; i++) {
+                            data1[i][0] = subjects1.get(i).getSubjectId();
+                            data1[i][1] = subjects1.get(i).getSubjectName();
+                            data1[i][2] = String.valueOf(subjects1.get(i).getCredit());
+
+                        }
+                        for (int i = 0; i < size1; i++) {
+                            model.addRow(data1[i]);
+                        }
+                    }
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();
+                }
             }
         });
     }

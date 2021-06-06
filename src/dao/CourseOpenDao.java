@@ -1,13 +1,16 @@
 package dao;
 
-import hibernate.Clazz;
+import hibernate.Course;
 import hibernate.CourseOpen;
+import hibernate.Subject;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import utils.HibernateUtil;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseOpenDao {
@@ -70,8 +73,54 @@ public class CourseOpenDao {
             session.close();
         }
     }
-    public static void main(String[] args){
-        Clazz c = new Clazz("19CTT6", 0, 1,0 );
+    public static List<CourseOpen> search(String keyword) throws SQLException {
+
+        String host="localhost";
+        String port="5432";
+        String dbname="StudentDB";
+        String user="postgres";
+        String pass="zxcvbnmA8";
+        String dburl = "jdbc:postgresql://"+host+":"+port+"/"+dbname+"?loggerLevel=OFF";
+        Connection con = DriverManager.getConnection(dburl, "postgres", "zxcvbnmA8");
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM course WHERE course_id LIKE ? ";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, "%" + keyword + "%");
+        ResultSet rs = ps.executeQuery();
+        List<Course> courses = new ArrayList<>();
+        List<Subject> subjects = SubjectDao.getAllSubjects();
+        while (rs.next()){
+            Course c = new Course();
+            c.setId(rs.getInt("id"));
+            c.setSlot(rs.getInt("slot"));
+            c.setTeacherName(rs.getString("teacher_name"));
+            c.setStudyDay(rs.getString("study_day"));
+            c.setStudyTime(rs.getString("study_time"));
+            c.setClassroom(rs.getString("classroom"));
+            String subject_id = rs.getString("course_id");
+            for(Subject s: subjects){
+                if(s.getSubjectId().equals(subject_id)) {
+                    c.setCourseId(s);
+                    break;
+                }
+            }
+            courses.add(c);
+        }
+        List<CourseOpen> courseOpens = CourseOpenDao.getAllCourseOpen();
+        List<CourseOpen> result = new ArrayList<>();
+        for(CourseOpen courseOpen: courseOpens){
+            for(Course course: courses){
+                if(courseOpen.getCourseId().toString().equals(course.toString())){
+                    result.add(courseOpen);
+                }
+            }
+        }
+        return result;
+    }
+    public static void main(String[] args) throws SQLException {
+        List<CourseOpen> c  = search("CSC");
+        System.out.println(c.get(0).getStartDay());
+
         //insertAClass(c);
         //updateAClass(c);
         //List<Clazz> classes = getAllClasses();

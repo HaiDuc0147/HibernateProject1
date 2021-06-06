@@ -8,6 +8,14 @@ public class Login {
     private String password;
     private boolean role;
 
+    public Login() { }
+
+    public Login(String username, String password, boolean role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
     public int getId() {
         return id;
     }

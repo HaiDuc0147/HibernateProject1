@@ -6,7 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import utils.HibernateUtil;
+import utils.Utils;
 
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginDao {
@@ -86,16 +89,34 @@ public class LoginDao {
         session.close();
 
     }
-
-    public static void main(String[] args) {
-        Login l = new Login();
-        //l.setId(1);
-     //l.setUsername("thđức");
-     //l.setPassword("thđức");
-     //l.setRole(true);
-        l.setId(1);
-
-        //LoginDao.updateAccount(l);
-        LoginDao.deleteAnAccount(l);
+    public static List<Login> search(String keyword) throws SQLException {
+        List<Login> logins = new ArrayList<>();
+        String host="localhost";
+        String port="5432";
+        String dbname="StudentDB";
+        String user="postgres";
+        String pass="zxcvbnmA8";
+        String dburl = "jdbc:postgresql://"+host+":"+port+"/"+dbname+"?loggerLevel=OFF";
+        Connection con = DriverManager.getConnection(dburl, "postgres", "zxcvbnmA8");
+        Statement stmt = con.createStatement();
+        String query = "SELECT * FROM login WHERE username LIKE ? ";
+        PreparedStatement ps = con.prepareStatement(query);
+        keyword = Utils.formatNameToUsername(keyword);
+        ps.setString(1, "%" + keyword + "%");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            String usernmame = rs.getString("username");
+            String password = rs.getString("password");
+            Boolean role = rs.getBoolean("role");
+            Login l = new Login(usernmame, password, role);
+            logins.add(l);
+        }
+        return logins;
+    }
+    public static void main(String[] args) throws SQLException {
+        List<Login> logins = LoginDao.search("Văn Khiết");
+        for(Login l: logins){
+            System.out.println(l.getUsername());
+        }
     }
 }

@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,6 +26,8 @@ public class showCourses extends JDialog {
     private JLabel semesterInformation;
     private JButton deleteButton;
     private JList sessionList;
+    private JTextField searchField;
+    private JButton findButton;
     private JTable courseSessionTable;
     private JButton buttonOK;
 
@@ -122,11 +125,11 @@ public class showCourses extends JDialog {
                     //System.out.println(courseSession);
                     boolean isDuplicate = false;
                     for (int i = 0; i < modelSession.size(); i++)
-                        if (String.valueOf(modelSession.getElementAt(i)).equals(courseSession)){
+                        if (String.valueOf(modelSession.getElementAt(i)).equals(courseSession)) {
                             isDuplicate = true;
                             break;
                         }
-                    if(!isDuplicate)
+                    if (!isDuplicate)
                         modelSession.addElement(courseSession);
                 }
                 int size1 = courseOpens1.size();
@@ -186,11 +189,6 @@ public class showCourses extends JDialog {
                         for (Course course : courses)
                             if (c.toString().equals(course.toString()))
                                 CourseDao.deleteACourse(course);
-
-                        //c.set
-                        //c.setCourseId();
-
-                        //co.setCourseId();
                         model.removeRow(courseTable.getSelectedRow());
                         JOptionPane.showMessageDialog(null, "Xóa học phần thành công ");
                     }
@@ -201,6 +199,45 @@ public class showCourses extends JDialog {
                 courseTable.removeAll();
                 courseTable.validate();
                 courseTable.repaint();
+            }
+        });
+        findButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    List<CourseOpen> courseOpens1 = CourseOpenDao.search(searchField.getText());
+                    while (model.getRowCount() > 0) {
+                        model.removeRow(0);
+                    }
+                    int size1 = courseOpens1.size();
+                    if (size1 > 0) {
+                        List<CourseOpen> courseOpens2 = new ArrayList<>();
+                        for (CourseOpen courseOpen1 : courseOpens1) {
+                            if (courseOpen1.getSemesterId().getId() == ShowSemesters.chosenSemesterGlobal.getId())
+                               courseOpens2.add(courseOpen1);
+                        }
+                        int size2 = courseOpens2.size();
+                        String[][] data1 = new String[size2][9];
+
+
+                        for (int i = 0; i < size2; i++) {
+                            data1[i][0] = courseOpens2.get(i).getCourseId().getCourseId().getSubjectId();
+                            data1[i][1] = courseOpens2.get(i).getCourseId().getCourseId().getSubjectName();
+                            data1[i][2] = courseOpens2.get(i).getCourseId().getStudyDay();
+                            data1[i][3] = courseOpens2.get(i).getCourseId().getStudyTime();
+                            data1[i][4] = courseOpens2.get(i).getCourseId().getClassroom();
+                            data1[i][5] = String.valueOf(courseOpens2.get(i).getCourseId().getSlot());
+                            data1[i][6] = courseOpens2.get(i).getCourseId().getTeacherName();
+                            data1[i][7] = String.valueOf(courseOpens2.get(i).getStartDay());
+                            data1[i][8] = String.valueOf(courseOpens2.get(i).getEndDay());
+                        }
+                        for (int i = 0; i < size2; i++) {
+                            model.addRow(data1[i]);
+                        }
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
         });
     }

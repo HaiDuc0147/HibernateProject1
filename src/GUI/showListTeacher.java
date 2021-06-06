@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 public class showListTeacher extends JDialog {
@@ -16,6 +17,8 @@ public class showListTeacher extends JDialog {
     private JButton deleteButton;
     private JButton resetPasswordButton;
     private JButton showPasswordButton;
+    private JTextField searchField;
+    private JButton searchButton;
     private JButton buttonOK;
 
     public showListTeacher() {
@@ -103,6 +106,35 @@ public class showListTeacher extends JDialog {
                 LoginDao.updateAccount(l);
                 JOptionPane.showMessageDialog(null, "Mật khẩu được set mặc định là admin");
                 listTeacherTable.setValueAt("admin", row, 1);
+            }
+        });
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    List<Login> logins1 = LoginDao.search(searchField.getText());
+                    while (model.getRowCount() > 0) {
+                        model.removeRow(0);
+                    }
+                    int size1 = logins1.size();
+                    String[][] data1 = new String[size1][2];
+                    System.out.println(size1);
+                    int j = 0;
+                    if (size1 > 0) {
+                        for (int i = 0; i < size1; i++) {
+                            if(logins1.get(i).getRole()) {
+                                data1[j][0] = logins1.get(i).getUsername();
+                                data1[j][1] = "*************";
+                                j++;
+                            }
+                        }
+                        for (int i = 0; i < j; i++) {
+                            model.addRow(data1[i]);
+                        }
+                    }
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();
+                }
             }
         });
     }
