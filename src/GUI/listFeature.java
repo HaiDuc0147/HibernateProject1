@@ -3,6 +3,7 @@ package GUI;
 import utils.Utils;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -153,6 +154,8 @@ public class listFeature extends JDialog {
         addStudentButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                addStudentButton.setBorder(border);
                 addStudentButton.setBorderPainted(true);
                 informationLabel.setText("Thêm sinh viên");
             }
@@ -167,6 +170,8 @@ public class listFeature extends JDialog {
         showSubjectButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                showSubjectButton.setBorder(border);
                 showSubjectButton.setBorderPainted(true);
                 informationLabel.setText("Danh sách môn học");
             }
@@ -181,7 +186,8 @@ public class listFeature extends JDialog {
             @Override
             public void mouseEntered(MouseEvent e) {
                 //addSubjectButton.setBounds(10,40,50,20);
-
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                addSubjectButton.setBorder(border);
                 addSubjectButton.setBorderPainted(true);
 
                 informationLabel.setText("Thêm môn học");
@@ -196,6 +202,8 @@ public class listFeature extends JDialog {
         changeInformationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                changeInformationButton.setBorder(border);
                 changeInformationButton.setBorderPainted(true);
                 informationLabel.setText("Thay đổi mật khẩu");
             }
@@ -209,6 +217,8 @@ public class listFeature extends JDialog {
         classInformationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                classInformationButton.setBorder(border);
                 classInformationButton.setBorderPainted(true);
                 informationLabel.setText("Thông tin lớp học");
             }
@@ -229,6 +239,8 @@ public class listFeature extends JDialog {
         logOutButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                logOutButton.setBorder(border);
                 logOutButton.setBorderPainted(true);
                 informationLabel.setText("Đăng xuất");
             }
@@ -248,6 +260,8 @@ public class listFeature extends JDialog {
         addTeacherButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                addTeacherButton.setBorder(border);
                 addTeacherButton.setBorderPainted(true);
                 informationLabel.setText("Danh sách giáo vụ");
             }
@@ -261,6 +275,8 @@ public class listFeature extends JDialog {
         addCourseButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                addCourseButton.setBorder(border);
                 addCourseButton.setBorderPainted(true);
                 informationLabel.setText("Danh sách học phần");
             }
@@ -281,6 +297,8 @@ public class listFeature extends JDialog {
         seeInformationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                seeInformationButton.setBorder(border);
                 seeInformationButton.setBorderPainted(true);
                 informationLabel.setText("Thông tin cá nhân");
             }
@@ -294,6 +312,8 @@ public class listFeature extends JDialog {
         showSemesterButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                showSemesterButton.setBorder(border);
                 showSemesterButton.setBorderPainted(true);
                 informationLabel.setText("Danh sách học kỳ");
             }

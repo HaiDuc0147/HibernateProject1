@@ -71,10 +71,7 @@ public class Semester {
 
     @Override
     public String toString() {
-        return "Semester{" +
-                "semesterName='" + semesterName + '\'' +
-                ", year='" + year + '\'' +
-                '}';
+        return semesterName  + " - " + year;
     }
 
     @Override

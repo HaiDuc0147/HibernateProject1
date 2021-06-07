@@ -6,6 +6,7 @@ import dao.StudentDao;
 import hibernate.Clazz;
 import hibernate.Login;
 import hibernate.Student;
+import utils.Utils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,7 @@ public class AddStudent extends JDialog {
     private JTextField classIdField;
     private JCheckBox isMaleCheckBox;
     private JCheckBox isFemaleCheckBox;
-    private JButton thêmButton;
+    private JButton addButton;
     private JComboBox classField;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -29,6 +30,11 @@ public class AddStudent extends JDialog {
         setModal(true);
         this.setTitle("Thêm sinh viên");
         this.setSize(300, 250);
+
+        ImageIcon addIcon = new ImageIcon ("img/add.png");
+        addIcon = Utils.transformImg(addIcon, 15, 15);
+        addButton.setIcon(addIcon);
+
         List<Clazz> clazzes = ClassDao.getAllClasses();
         for(Clazz cl: clazzes)
             classField.addItem(cl.getClassId());
@@ -48,7 +54,7 @@ public class AddStudent extends JDialog {
                 isMaleCheckBox.setSelected(false);
             }
         });
-        thêmButton.addActionListener(new ActionListener() {
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Student s = new Student();

@@ -2,6 +2,7 @@ package GUI;
 
 import dao.SubjectDao;
 import hibernate.Subject;
+import utils.Utils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +26,19 @@ public class showSubject extends JDialog {
         this.setSize(500, 700);
         setContentPane(contentPane);
         setModal(true);
+        ImageIcon searchIcon = new ImageIcon ("img/search.png");
+        searchIcon = Utils.transformImg(searchIcon, 15, 15);
+        searchButton.setIcon(searchIcon);
+        ImageIcon addIcon = new ImageIcon ("img/add.png");
+        addIcon = Utils.transformImg(addIcon, 15, 15);
+        addButton.setIcon(addIcon);
+        ImageIcon removeIcon = new ImageIcon ("img/remove.png");
+        removeIcon = Utils.transformImg(removeIcon, 15, 15);
+        deleteButton.setIcon(removeIcon);
+        ImageIcon updateIcon = new ImageIcon ("img/update.png");
+        updateIcon = Utils.transformImg(updateIcon, 15, 15);
+        updateButton.setIcon(updateIcon);
+
         List<Subject> subjects = SubjectDao.getAllSubjects();
         int size = subjects.size();
         String[] columnNames = {"Mã Môn Học", "Tên Môn Học", "Số Tín Chỉ"};

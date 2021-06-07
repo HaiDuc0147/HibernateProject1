@@ -16,6 +16,7 @@ public class addClass extends JDialog {
         this.setSize(200, 100);
         setContentPane(contentPane);
         setModal(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         addButton.addActionListener(new ActionListener() {
             @Override

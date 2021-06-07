@@ -2,6 +2,7 @@ package GUI;
 
 import dao.LoginDao;
 import hibernate.Login;
+import utils.Utils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -24,11 +25,24 @@ public class showListTeacher extends JDialog {
     public showListTeacher() {
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
         this.setTitle("Danh sách tài khoản giáo vụ");
-        this.setSize(500, 700);
-        setContentPane(contentPane);
-        setModal(true);
+        this.setSize(550, 700);
+        ImageIcon searchIcon = new ImageIcon ("img/search.png");
+        searchIcon = Utils.transformImg(searchIcon, 15, 15);
+        searchButton.setIcon(searchIcon);
+        ImageIcon addIcon = new ImageIcon ("img/add.png");
+        addIcon = Utils.transformImg(addIcon, 15, 15);
+        addButton.setIcon(addIcon);
+        ImageIcon removeIcon = new ImageIcon ("img/remove.png");
+        removeIcon = Utils.transformImg(removeIcon, 15, 15);
+        deleteButton.setIcon(removeIcon);
+        ImageIcon resetIcon = new ImageIcon ("img/reset.png");
+        resetIcon = Utils.transformImg(resetIcon, 15, 15);
+        resetPasswordButton.setIcon(resetIcon);
+        ImageIcon showIcon = new ImageIcon ("img/show1.png");
+        showIcon = Utils.transformImg(showIcon, 15, 15);
+        showPasswordButton.setIcon(showIcon);
+        final Boolean[] isAppeared = {false};
         List<Login> logins = LoginDao.getAllAccounts();
         int size = logins.size();
         String[] columnNames = {"Tên đăng nhập", "Mật khẩu"};
@@ -51,10 +65,19 @@ public class showListTeacher extends JDialog {
         showPasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int row = listTeacherTable.getSelectedRow();
-                Login l = LoginDao.getAnAccount((String) listTeacherTable.getValueAt(row, 0));
-                String password = l.getPassword();
-                listTeacherTable.setValueAt(password, row, 1);
+                if(!isAppeared[0]) {
+                    int row = listTeacherTable.getSelectedRow();
+                    Login l = LoginDao.getAnAccount((String) listTeacherTable.getValueAt(row, 0));
+                    String password = l.getPassword();
+                    listTeacherTable.setValueAt(password, row, 1);
+                    isAppeared[0] = true;
+                }
+                else{
+                    int row = listTeacherTable.getSelectedRow();
+                    String password = "*************";
+                    listTeacherTable.setValueAt(password, row, 1);
+                    isAppeared[0] = false;
+                }
             }
         });
         addButton.addActionListener(new ActionListener() {

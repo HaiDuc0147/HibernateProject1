@@ -2,6 +2,7 @@ package GUI;
 
 import dao.TeacherDao;
 import hibernate.Teacher;
+import utils.Utils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,9 @@ public class showTeacherInformation extends JDialog {
         this.setTitle("Thông tin cá nhân");
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        ImageIcon updateIcon = new ImageIcon ("img/update.png");
+        updateIcon = Utils.transformImg(updateIcon, 15, 15);
+        updateButton.setIcon(updateIcon);
         Teacher tc = TeacherDao.getATeacher(LoginForm.usernameGlobal);
         teacherIdLabel.setText(tc.getTeacherId());
         nameField.setText(tc.getTeacherName());

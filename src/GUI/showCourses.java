@@ -6,6 +6,7 @@ import dao.SubjectDao;
 import hibernate.Course;
 import hibernate.CourseOpen;
 import hibernate.Subject;
+import utils.Utils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -39,6 +40,20 @@ public class showCourses extends JDialog {
                 " - Năm học " + ShowSemesters.chosenSemesterGlobal.getYear());
         setContentPane(contentPane);
         setModal(true);
+
+        ImageIcon searchIcon = new ImageIcon ("img/search.png");
+        searchIcon = Utils.transformImg(searchIcon, 15, 15);
+        findButton.setIcon(searchIcon);
+        ImageIcon addIcon = new ImageIcon ("img/add.png");
+        addIcon = Utils.transformImg(addIcon, 15, 15);
+        addCourseButton.setIcon(addIcon);
+        ImageIcon removeIcon = new ImageIcon ("img/remove.png");
+        removeIcon = Utils.transformImg(removeIcon, 15, 15);
+        deleteButton.setIcon(removeIcon);
+        ImageIcon addIcon1 = new ImageIcon ("img/add1.png");
+        addIcon1 = Utils.transformImg(addIcon1, 15, 15);
+        addCourseSessionButton.setIcon(addIcon1);
+
         List<CourseOpen> courseOpen = CourseOpenDao.getAllCourseOpen();
         List<CourseOpen> courseOpens = new ArrayList<>();
         HashSet<String> courseSessions = new HashSet<>();

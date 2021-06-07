@@ -17,7 +17,10 @@
         <children>
           <component id="a6538" class="javax.swing.JTable" binding="courseTable">
             <constraints/>
-            <properties/>
+            <properties>
+              <selectionBackground color="-11833681"/>
+              <surrendersFocusOnKeystroke value="false"/>
+            </properties>
           </component>
         </children>
       </scrollpane>

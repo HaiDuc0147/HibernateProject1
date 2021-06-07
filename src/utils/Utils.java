@@ -23,7 +23,15 @@ public class Utils {
         for(int i = 1; i <= days; i++)
             month.addItem(i);
     }
-
+    public static String getLookAndFeelClassName(String nameSnippet) {
+        UIManager.LookAndFeelInfo[] plafs = UIManager.getInstalledLookAndFeels();
+        for (UIManager.LookAndFeelInfo info : plafs) {
+            if (info.getName().contains(nameSnippet)) {
+                return info.getClassName();
+            }
+        }
+        return null;
+    }
     public static void main(String[] args){
         System.out.println(formatNameToUsername("Thoi Hai Duc"));
     }

@@ -3,6 +3,7 @@ package GUI;
 import utils.Utils;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,7 @@ public class startUI extends JDialog {
         //register the font
         ge.registerFont(font);
 
+        youAreLabel.setFont(font);
         teacherLabel.setFont(font);
         studentLabel.setFont(font);
 
@@ -56,6 +58,8 @@ public class startUI extends JDialog {
         studentChoiceButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                studentChoiceButton.setBorder(border);
                 studentChoiceButton.setBorderPainted(true);
                 studentLabel.setText("Sinh Viên");
             }
@@ -75,6 +79,8 @@ public class startUI extends JDialog {
 
             @Override
             public void mouseEntered(MouseEvent e) {
+                Border border = BorderFactory.createLineBorder(Color.BLACK);
+                teacherChoiceButton.setBorder(border);
                 teacherChoiceButton.setBorderPainted(true);
                 teacherLabel.setText("Giáo Vụ");
 
@@ -88,10 +94,23 @@ public class startUI extends JDialog {
 
             }
         });
+        studentChoiceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginFormStudent login = new LoginFormStudent();
+                login.setVisible(true);
+            }
+        });
     }
 
-    public static void main(String[] args) throws IOException, FontFormatException {
+    public static void main(String[] args) throws IOException, FontFormatException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         startUI dialog = new startUI();
+        String className = Utils.getLookAndFeelClassName("Nimbus");
+        UIManager.setLookAndFeel(className);
+        for(Window window : JFrame.getWindows()) {
+            SwingUtilities.updateComponentTreeUI(window);
+        }
+
         dialog.pack();
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);

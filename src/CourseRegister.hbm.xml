@@ -9,8 +9,14 @@
             <column name="id" sql-type="integer"/>
             <generator class="identity"/>
         </id>
+        <many-to-one class="hibernate.CourseOpen" name="courseId" lazy="false" cascade="save-update">
+            <column name="course_id" sql-type="integer"/>
+        </many-to-one>
         <property name="registerDay">
             <column name="register_day" sql-type="date"/>
         </property>
+        <many-to-one class="hibernate.Student" name="studentId" lazy="false" cascade="save-update">
+            <column name="student_id" sql-type="integer"/>
+        </many-to-one>
     </class>
 </hibernate-mapping>

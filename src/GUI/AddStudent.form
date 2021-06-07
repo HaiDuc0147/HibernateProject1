@@ -81,7 +81,7 @@
           <text value="Nữ"/>
         </properties>
       </component>
-      <component id="525be" class="javax.swing.JButton" binding="thêmButton" default-binding="true">
+      <component id="525be" class="javax.swing.JButton" binding="addButton">
         <constraints>
           <grid row="5" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>

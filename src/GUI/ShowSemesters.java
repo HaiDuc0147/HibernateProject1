@@ -3,11 +3,10 @@ package GUI;
 import dao.CourseDao;
 import dao.CourseOpenDao;
 import dao.SemesterDao;
-import dao.SubjectDao;
 import hibernate.Course;
 import hibernate.CourseOpen;
 import hibernate.Semester;
-import hibernate.Subject;
+import utils.Utils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -15,8 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class ShowSemesters extends JDialog {
@@ -33,8 +30,17 @@ public class ShowSemesters extends JDialog {
 
         this.setTitle("Danh sách học kỳ");
         this.setSize(500, 700);
-        setContentPane(contentPane);
-        setModal(true);
+
+        ImageIcon addIcon = new ImageIcon ("img/add.png");
+        addIcon = Utils.transformImg(addIcon, 15, 15);
+        addButton.setIcon(addIcon);
+        ImageIcon removeIcon = new ImageIcon ("img/remove.png");
+        removeIcon = Utils.transformImg(removeIcon, 15, 15);
+        deleteButton.setIcon(removeIcon);
+        ImageIcon presentIcon = new ImageIcon ("img/present.png");
+        presentIcon = Utils.transformImg(presentIcon, 15, 15);
+        choosenButton.setIcon(presentIcon);
+
         List<Semester> semesters = SemesterDao.getAllSemester();
         int size = semesters.size();
         String[] columnNames = {"Học kỳ", "Năm học", "Ngày bắt đầu", "Ngày kết thúc"};

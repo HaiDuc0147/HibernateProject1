@@ -1,9 +1,8 @@
 package GUI;
 
 import dao.ClassDao;
-import dao.SubjectDao;
 import hibernate.Clazz;
-import hibernate.Subject;
+import utils.Utils;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -23,6 +22,14 @@ public class showClasses extends JDialog {
         this.setSize(500, 700);
         setContentPane(contentPane);
         setModal(true);
+
+        ImageIcon addIcon = new ImageIcon ("img/add.png");
+        addIcon = Utils.transformImg(addIcon, 15, 15);
+        addClassButton.setIcon(addIcon);
+        ImageIcon removeIcon = new ImageIcon ("img/remove.png");
+        removeIcon = Utils.transformImg(removeIcon, 15, 15);
+        deleteButton.setIcon(removeIcon);
+
         List<Clazz> classes = ClassDao.getAllClasses();
         int size = classes.size();
         String[] columnNames = {"Mã lớp học ", "Tổng sinh viên", "Sinh viên nam", "Sinh viên nữ"};
@@ -48,6 +55,7 @@ public class showClasses extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addClass addClassForm = new addClass();
+                addClassForm.setSize(250, 120);
                 addClassForm.setLocationRelativeTo(null);
                 addClassForm.setVisible(true);
                 DefaultTableModel model = (DefaultTableModel) showClassesTable.getModel();

@@ -54,7 +54,7 @@ public class LoginDao {
         List<Login> logins = LoginDao.getAllAccounts();
         for (Login lo : logins) {
             //System.out.println(lo);
-            if (lo.getUsername().equals(l.getUsername()) && lo.getPassword().equals(l.getPassword()))
+            if (lo.getUsername().equals(l.getUsername()) && lo.getPassword().equals(l.getPassword()) && lo.getRole() == l.getRole())
                 return true;
         }
         return false;

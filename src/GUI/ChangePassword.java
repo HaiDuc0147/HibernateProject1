@@ -2,9 +2,9 @@ package GUI;
 
 import dao.LoginDao;
 import hibernate.Login;
+import utils.Utils;
 
 import javax.swing.*;
-import javax.swing.text.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,6 +21,9 @@ public class ChangePassword extends JDialog {
         this.setTitle("Thay đổi mật khẩu");
         String username = LoginForm.usernameGlobal;
         String password = LoginForm.passwordGlobal;
+        ImageIcon updateIcon = new ImageIcon ("img/change1.png");
+        updateIcon = Utils.transformImg(updateIcon, 20, 20);
+        changeButton.setIcon(updateIcon);
         setContentPane(contentPane);
         setModal(true);
         this.setLocationRelativeTo(null);

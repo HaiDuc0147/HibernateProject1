@@ -20,6 +20,8 @@ public class LoginForm extends JDialog {
     public static String passwordGlobal;
 
     public LoginForm() {
+
+
         this.setSize(300, 200);
         this.setTitle("Đăng nhập");
         setContentPane(contentPane);
@@ -54,6 +56,7 @@ public class LoginForm extends JDialog {
                         listFeature features = new listFeature();
                         features.setSize(1000, 900);
                         features.setLocationRelativeTo(null);
+
                         features.setVisible(true);
                         dispose();
                     } catch (IOException | FontFormatException ioException) {

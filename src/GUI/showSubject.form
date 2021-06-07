@@ -18,7 +18,9 @@
           <component id="fba1d" class="javax.swing.JTable" binding="Subjects">
             <constraints/>
             <properties>
+              <autoCreateRowSorter value="false"/>
               <font/>
+              <surrendersFocusOnKeystroke value="true"/>
             </properties>
           </component>
         </children>
