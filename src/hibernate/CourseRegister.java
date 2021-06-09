@@ -50,6 +50,14 @@ public class CourseRegister {
     }
 
     @Override
+    public String toString() {
+        return "CourseRegister{" +
+                "courseId=" + courseId +
+                ", studentId=" + studentId +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, courseId, registerDay, studentId);
     }

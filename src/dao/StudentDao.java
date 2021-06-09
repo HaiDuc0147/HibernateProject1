@@ -1,6 +1,5 @@
 package dao;
 
-import hibernate.Clazz;
 import hibernate.Student;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -47,5 +46,20 @@ public class StudentDao {
         } finally {
             session.close();
         }
+    }
+    public static Student getAStudent(String id) {
+        List<Student> students = StudentDao.getAllStudent();
+        int i = 0;
+        for(;i < students.size(); i++)
+            if(id.equals(students.get(i).getStudentId()))
+                return students.get(i);
+        return null;
+    }
+    public static void updateAStudent(Student s){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        session.update(s);
+        t.commit();
+        session.close();
     }
 }

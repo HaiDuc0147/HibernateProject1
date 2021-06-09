@@ -60,7 +60,7 @@ public class Student {
         this.credits = credits;
     }
 
-    public boolean isGender() {
+    public boolean getGender() {
         return gender;
     }
 

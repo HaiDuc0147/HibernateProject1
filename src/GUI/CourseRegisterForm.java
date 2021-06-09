@@ -1,12 +1,11 @@
 package GUI;
 
 import dao.CourseOpenDao;
+import dao.CourseRegisterDao;
 import dao.SemesterDao;
-import dao.StudentDao;
 import hibernate.CourseOpen;
 import hibernate.CourseRegister;
 import hibernate.Semester;
-import hibernate.Student;
 import utils.Utils;
 
 import javax.swing.*;
@@ -21,6 +20,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class CourseRegisterForm extends JDialog {
     private JPanel contentPane;
@@ -46,10 +47,10 @@ public class CourseRegisterForm extends JDialog {
       semesterComboBox.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-              String semesterName = (String)semesterComboBox.getSelectedItem();
+              String semesterName = (String) semesterComboBox.getSelectedItem();
               Semester atPresent = null;
-              for(Semester s: semesters){
-                  if(s.toString().equals(semesterName)) {
+              for (Semester s : semesters) {
+                  if (s.toString().equals(semesterName)) {
                       atPresent = s;
                       break;
                   }
@@ -81,11 +82,11 @@ public class CourseRegisterForm extends JDialog {
                   for (int i = 0; i < size; i++) {
                       model.addRow(data[i]);
                   }
-                    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-                    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-                    for (int x = 0; x < columnNames.length; x++) {
-                        courseTable.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
-                    }
+                  DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+                  centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+                  for (int x = 0; x < columnNames.length; x++) {
+                      courseTable.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+                  }
                   courseTable.setModel(model);
                   TableCellRenderer rendererFromHeader = courseTable.getTableHeader().getDefaultRenderer();
                   JLabel headerLabel = (JLabel) rendererFromHeader;
@@ -96,21 +97,40 @@ public class CourseRegisterForm extends JDialog {
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<Student> students = StudentDao.getAllStudent();
-                CourseRegister courseRegister = new CourseRegister();
-                for(Student student: students)
-                    if(student.getStudentId().equals(LoginFormStudent.usernameGlobal)){
-                        courseRegister.setStudentId(student);
-                        break;
+                CourseRegister courseRegister = Utils.getCourseRegisterFromTable(courseTable, semesterComboBox);
+                List<CourseRegister> courseRegisters = CourseRegisterDao.getAllCourseRegister();
+                int count = 0;
+                for(CourseRegister c: courseRegisters){
+                    if (c.getCourseId().getCourseId().getStudyDay().equals(courseRegister.getCourseId().getCourseId().getStudyDay()) &&
+                            c.getCourseId().getCourseId().getStudyTime().equals(courseRegister.getCourseId().getCourseId().getStudyTime()) &&
+                            c.getStudentId().getStudentId().equals(courseRegister.getStudentId().getStudentId()) &&
+                            c.getId() != courseRegister.getId()){
+                        JOptionPane.showMessageDialog(null, "Bạn đã đăng kí học phần khác vào khung giờ này!");
+                        return;
                     }
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
-                LocalDate localDate = LocalDate.now();
-                Date date = java.sql.Date.valueOf(localDate);
-                courseRegister.setRegisterDay(date);
-                //courseRegister.setCourseId();
+                    if(c.getStudentId().getStudentId().equals(courseRegister.getStudentId().getStudentId())){
+                        count++;
+                    }
+                }
+                if(count >= 8){
+                    JOptionPane.showMessageDialog(null, "Bạn đã đăng kí đủ 8 môn, không thể đăng kí thêm được nữa!");
+                    return;
+                }
+                int row = courseTable.getSelectedRow();
+                if (row >= 0) {
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+                    LocalDate localDate = LocalDate.now();
+                    Date date = java.sql.Date.valueOf(localDate);
+                    courseRegister.setRegisterDay(date);
+                    CourseRegisterDao.insertACourseRegister(courseRegister);
+                    JOptionPane.showMessageDialog(null, "Đăng kí môn " + courseRegister.getCourseId().getCourseId().getCourseId().getSubjectName() + " thành công!");
 
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bạn chưa chọn học phần để đăng kí!");
+                }
             }
         });
+
     }
 
     public static void main(String[] args) throws UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {

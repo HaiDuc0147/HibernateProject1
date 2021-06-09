@@ -22,6 +22,7 @@ public class ListFeatureStudent extends JDialog {
     private JLabel registerCourseLabel;
     private JButton logOutButton;
     private JLabel logOutLabel;
+    private JButton button1;
 
     public ListFeatureStudent() throws IOException, FontFormatException {
         setContentPane(contentPane);
@@ -140,6 +141,29 @@ public class ListFeatureStudent extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 CourseRegisterForm courseRegister = new CourseRegisterForm();
                 courseRegister.setVisible(true);
+            }
+        });
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowCourseRegister showCourseRegister = new ShowCourseRegister();
+                showCourseRegister.setVisible(true);
+            }
+        });
+        informationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ShowStudentInformation showStudentInformation = new ShowStudentInformation();
+                showStudentInformation.setLocationRelativeTo(null);
+                showStudentInformation.setVisible(true);
+            }
+        });
+        changePasswordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ChangePasswordStudent changePasswordStudent = new ChangePasswordStudent();
+                changePasswordStudent.setLocationRelativeTo(null);
+                changePasswordStudent.setVisible(true);
             }
         });
     }

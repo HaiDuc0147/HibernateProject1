@@ -16,7 +16,8 @@ public class showClasses extends JDialog {
     private JTable showClassesTable;
     private JButton addClassButton;
     private JButton deleteButton;
-
+    private JButton showInformationButton;
+    public static String classIdGlobal;
     public showClasses() {
         this.setTitle("Danh sách lớp học");
         this.setSize(500, 700);
@@ -29,6 +30,10 @@ public class showClasses extends JDialog {
         ImageIcon removeIcon = new ImageIcon ("img/remove.png");
         removeIcon = Utils.transformImg(removeIcon, 15, 15);
         deleteButton.setIcon(removeIcon);
+
+        ImageIcon lookUpIcon = new ImageIcon ("img/lookUp.png");
+        lookUpIcon = Utils.transformImg(lookUpIcon, 15, 15);
+        showInformationButton.setIcon(lookUpIcon);
 
         List<Clazz> classes = ClassDao.getAllClasses();
         int size = classes.size();
@@ -93,6 +98,16 @@ public class showClasses extends JDialog {
                 } else {
                     JOptionPane.showMessageDialog(null, "Unable To Delete");
                 }
+            }
+        });
+        showInformationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = showClassesTable.getSelectedRow();
+                classIdGlobal = (String) showClassesTable.getValueAt(row, 0);
+                ShowStudentsInClass showStudentsInClass = new ShowStudentsInClass();
+                showStudentsInClass.setLocationRelativeTo(null);
+                showStudentsInClass.setVisible(true);
             }
         });
     }

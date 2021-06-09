@@ -67,10 +67,7 @@ public class AddCourse extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Course c = new Course();
-                Subject s = new Subject();
-                s.setSubjectId((String)courseIdComboBox.getSelectedItem());
-                s.setSubjectName(SubjectDao.getASubject(s.getSubjectId()).getSubjectName());
-                c.setCourseId(s);
+                c.setCourseId(SubjectDao.getASubject((String)courseIdComboBox.getSelectedItem()));
                 c.setStudyDay((String)dateCombobox.getSelectedItem());
                 c.setClassroom(roomField.getText());
                 c.setStudyTime((String)timeComboBox.getSelectedItem());
@@ -105,3 +102,5 @@ public class AddCourse extends JDialog {
         // TODO: place custom component creation code here
     }
 }
+
+
