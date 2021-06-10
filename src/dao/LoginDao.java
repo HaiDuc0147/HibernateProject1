@@ -1,6 +1,7 @@
 package dao;
 
 import hibernate.Login;
+import hibernate.Student;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -78,6 +79,14 @@ public class LoginDao {
             session.close();
         }
         return true;
+    }
+
+    public static void updateAnAccount(Login l){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = session.beginTransaction();
+        session.update(l);
+        t.commit();
+        session.close();
     }
 
     public static void deleteAnAccount(Login l) {

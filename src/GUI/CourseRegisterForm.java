@@ -35,6 +35,9 @@ public class CourseRegisterForm extends JDialog {
         this.setSize(1500, 700);
         setContentPane(contentPane);
         setModal(true);
+        ImageIcon remgisterIcon = new ImageIcon ("img/add.png");
+        remgisterIcon = Utils.transformImg(remgisterIcon, 15, 15);
+        registerButton.setIcon(remgisterIcon);
         List<Semester> semesters = SemesterDao.getAllSemester();
         for(Semester semester: semesters)
             semesterComboBox.addItem((String)semester.toString());
@@ -43,7 +46,48 @@ public class CourseRegisterForm extends JDialog {
         DefaultTableModel model = (DefaultTableModel) courseTable.getModel();
         for (int i = 0; i < columnNames.length; i++)
             model.addColumn(columnNames[i]);
-
+        String semesterName = (String) semesterComboBox.getSelectedItem();
+        Semester atPresent = null;
+        for (Semester s : semesters) {
+            if (s.toString().equals(semesterName)) {
+                atPresent = s;
+                break;
+            }
+        }
+        List<CourseOpen> courseOpen = CourseOpenDao.getAllCourseOpen();
+        List<CourseOpen> courseOpens = new ArrayList<>();
+        for (CourseOpen c : courseOpen) {
+            if (c.getSemesterId().getId() == atPresent.getId()) {
+                courseOpens.add(c);
+            }
+        }
+        int size = courseOpens.size();
+        String[][] data = new String[size][9];
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                data[i][0] = courseOpens.get(i).getCourseId().getCourseId().getSubjectId();
+                data[i][1] = courseOpens.get(i).getCourseId().getCourseId().getSubjectName();
+                data[i][2] = courseOpens.get(i).getCourseId().getStudyDay();
+                data[i][3] = courseOpens.get(i).getCourseId().getStudyTime();
+                data[i][4] = courseOpens.get(i).getCourseId().getClassroom();
+                data[i][5] = String.valueOf(courseOpens.get(i).getCourseId().getSlot());
+                data[i][6] = courseOpens.get(i).getCourseId().getTeacherName();
+                data[i][7] = String.valueOf(courseOpens.get(i).getStartDay());
+                data[i][8] = String.valueOf(courseOpens.get(i).getEndDay());
+            }
+            for (int i = 0; i < size; i++) {
+                model.addRow(data[i]);
+            }
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+            for (int x = 0; x < columnNames.length; x++) {
+                courseTable.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+            }
+            courseTable.setModel(model);
+            TableCellRenderer rendererFromHeader = courseTable.getTableHeader().getDefaultRenderer();
+            JLabel headerLabel = (JLabel) rendererFromHeader;
+            headerLabel.setHorizontalAlignment(JLabel.CENTER);
+        }
       semesterComboBox.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {

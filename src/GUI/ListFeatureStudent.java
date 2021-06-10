@@ -22,28 +22,31 @@ public class ListFeatureStudent extends JDialog {
     private JLabel registerCourseLabel;
     private JButton logOutButton;
     private JLabel logOutLabel;
-    private JButton button1;
+    private JButton resultRegisterButton;
+    private JLabel helloLabel;
+    private JLabel KHTNLabel;
+    private JLabel lineLabel;
+    private JLabel lineLabel1;
 
     public ListFeatureStudent() throws IOException, FontFormatException {
         setContentPane(contentPane);
         setModal(true);
-        Font font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/SVN-Journey-Bold.otf")).deriveFont(32f);
+        Font font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/SVN-Journey-Bold.otf")).deriveFont(100f);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         //register the font
         ge.registerFont(font);
 
         this.setTitle("Sinh viên");
-        this.setSize(1200, 400);
+        this.setSize(1300, 400);
         //helloField.setFont(font);
         //helloField.setText("Xin chào " + LoginForm.usernameGlobal);
         this.setLocationRelativeTo(null);
-        informationLabel.setSize(30, 30);
         informationLabel.setFont(font);
-        changePasswordLabel.setFont(font);
-        registerCourseLabel.setFont(font);
-        logOutLabel.setFont(font);
-        int width = 200;
-        int height = 200;
+       //changePasswordLabel.setFont(font);
+       //registerCourseLabel.setFont(font);
+       //logOutLabel.setFont(font);
+        int width = 150;
+        int height = 150;
         ImageIcon seeInformationIcon = new ImageIcon ("img/seeInformation3.png");
         seeInformationIcon = Utils.transformImg(seeInformationIcon, width, height);
         informationButton.setIcon(seeInformationIcon);
@@ -76,6 +79,32 @@ public class ListFeatureStudent extends JDialog {
         logOutButton.setContentAreaFilled(false);
         logOutButton.setBorderPainted(false);
 
+        ImageIcon resultRegisterIcon = new ImageIcon ("img/resultRegister1.png");
+        resultRegisterIcon = Utils.transformImg(resultRegisterIcon, width, height);
+        resultRegisterButton.setIcon(resultRegisterIcon);
+
+        resultRegisterButton.setOpaque(false);
+        resultRegisterButton.setContentAreaFilled(false);
+        resultRegisterButton.setBorderPainted(false);
+
+        ImageIcon KHTNIcon = new ImageIcon ("img/KHTN2.png");
+        KHTNIcon = Utils.transformImg(KHTNIcon, 200, 200);
+        KHTNLabel.setIcon(KHTNIcon);
+        helloLabel.setFont(font);
+       //List<Teacher> teachers = TeacherDao.getAllTeacher();
+       //String name = new String();
+       //for(Teacher tc: teachers){
+       //    if(Utils.formatNameToUsername(tc.getTeacherName()).equals(LoginForm.usernameGlobal)){
+       //        name = tc.getTeacherName();
+       //        break;
+       //    }
+       //}
+        //helloLabel.setText("Xin chào " + name);
+        ImageIcon lineIcon = new ImageIcon ("img/line1.png");
+        lineIcon = Utils.transformImg(lineIcon, 1000, 20);
+        lineLabel.setIcon(lineIcon);
+        lineLabel1.setIcon(lineIcon);
+
         informationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -97,13 +126,13 @@ public class ListFeatureStudent extends JDialog {
                 Border border = BorderFactory.createLineBorder(Color.BLACK);
                 changePasswordButton.setBorder(border);
                 changePasswordButton.setBorderPainted(true);
-                changePasswordLabel.setText("Thay đổi mật khẩu");
+                informationLabel.setText("Thay đổi mật khẩu");
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 changePasswordButton.setBorderPainted(false);
-                changePasswordLabel.setText("");
+                informationLabel.setText("");
             }
         });
         registerCourseButton.addMouseListener(new MouseAdapter() {
@@ -112,13 +141,13 @@ public class ListFeatureStudent extends JDialog {
               //Border border = BorderFactory.createBevelBorder(1, Color.BLACK, Color.BLUE);
               //registerCourseButton.setBorder(border);
                 registerCourseButton.setBorderPainted(true);
-                registerCourseLabel.setText("");
+                informationLabel.setText("Đăng kí học phần");
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 registerCourseButton.setBorderPainted(false);
-                registerCourseLabel.setText("");
+                informationLabel.setText("");
             }
         });
         logOutButton.addMouseListener(new MouseAdapter() {
@@ -127,13 +156,13 @@ public class ListFeatureStudent extends JDialog {
                 Border border = BorderFactory.createLineBorder(Color.BLACK);
                 logOutButton.setBorder(border);
                 logOutButton.setBorderPainted(true);
-                logOutLabel.setText("Đăng xuất");
+                informationLabel.setText("Đăng xuất");
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 logOutButton.setBorderPainted(false);
-                logOutLabel.setText("");
+                informationLabel.setText("");
             }
         });
         registerCourseButton.addActionListener(new ActionListener() {
@@ -143,7 +172,7 @@ public class ListFeatureStudent extends JDialog {
                 courseRegister.setVisible(true);
             }
         });
-        button1.addActionListener(new ActionListener() {
+        resultRegisterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ShowCourseRegister showCourseRegister = new ShowCourseRegister();
@@ -172,7 +201,7 @@ public class ListFeatureStudent extends JDialog {
         ListFeatureStudent dialog = new ListFeatureStudent();
 
         //dialog.pack();
-        dialog.setSize(1200, 400);
+        dialog.setSize(1200, 1200);
         dialog.setVisible(true);
         System.exit(0);
     }

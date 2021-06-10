@@ -54,7 +54,6 @@ public class showListTeacher extends JDialog {
                 data[j][1] = "*************";
                 j++;
             }
-            //data[i][2] = String.valueOf(subjects.get(i).getCredit());
         }
 
         DefaultTableModel model = (DefaultTableModel) listTeacherTable.getModel();
@@ -86,6 +85,23 @@ public class showListTeacher extends JDialog {
                 addTeacher addTeacherForm = new addTeacher();
                 addTeacherForm.setLocationRelativeTo(null);
                 addTeacherForm.setVisible(true);
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+                List<Login> logins1 = LoginDao.getAllAccounts();
+                int size1 = logins1.size();
+                String[][] data1 = new String[size1][2];
+
+                int k = 0;
+                for (int i = 0; i < size1; i++) {
+                    if (logins1.get(i).getRole() == true) {
+                        data1[k][0] = logins1.get(i).getUsername();
+                        data1[k][1] = "*************";
+                        k++;
+                    }
+                }
+                for (int i = 0; i <= k; i++)
+                    model.addRow(data[i]);
             }
         });
         deleteButton.addActionListener(new ActionListener() {

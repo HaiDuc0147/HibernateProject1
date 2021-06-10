@@ -2,9 +2,8 @@ package dao;
 
 
 import hibernate.Clazz;
-import hibernate.Login;
+import hibernate.CourseRegister;
 import hibernate.Student;
-import hibernate.Subject;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -56,10 +55,15 @@ public class ClassDao {
         Transaction transaction = session.beginTransaction();
         try {
             // your code
-
             List<Student> students = StudentDao.getAllStudent();
+            List<CourseRegister> courseRegisters = CourseRegisterDao.getAllCourseRegister();
             for(Student st: students){
                 if(st.getClassId().getClassId().equals(c.getClassId())){
+                    for(CourseRegister courseRegister: courseRegisters){
+                        if(courseRegister.getStudentId().getStudentId().equals(st.getStudentId())){
+                            CourseRegisterDao.deleteACourseRegister(courseRegister);
+                        }
+                    }
                     StudentDao.deleteAStudent(st);
                 }
             }

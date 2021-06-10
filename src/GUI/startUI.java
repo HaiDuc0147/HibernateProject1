@@ -104,18 +104,15 @@ public class startUI extends JDialog {
     }
 
     public static void main(String[] args) throws IOException, FontFormatException, UnsupportedLookAndFeelException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        startUI dialog = new startUI();
-        String className = Utils.getLookAndFeelClassName("Nimbus");
-        UIManager.setLookAndFeel(className);
-        for(Window window : JFrame.getWindows()) {
-            SwingUtilities.updateComponentTreeUI(window);
-        }
-
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
-        dialog.dispose();
-        System.exit(0);
+       startUI dialog = new startUI();
+       String className = Utils.getLookAndFeelClassName("Nimbus");
+       UIManager.setLookAndFeel(className);
+       for(Window window : JFrame.getWindows()) {
+           SwingUtilities.updateComponentTreeUI(window);
+       }
+       dialog.pack();
+       dialog.setLocationRelativeTo(null);
+       dialog.setVisible(true);
     }
 }
 

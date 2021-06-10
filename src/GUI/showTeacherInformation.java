@@ -1,12 +1,15 @@
 package GUI;
 
+import dao.LoginDao;
 import dao.TeacherDao;
+import hibernate.Login;
 import hibernate.Teacher;
 import utils.Utils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class showTeacherInformation extends JDialog {
     private JPanel contentPane;
@@ -41,7 +44,20 @@ public class showTeacherInformation extends JDialog {
                 tc.setPhoneNumber(phoneNumberField.getText());
                 tc.setCitizenId(citizenIdField.getText());
                 TeacherDao.updateATeacher(tc);
-                JOptionPane.showMessageDialog(null, "Cập nhập thành công!");
+                String username = Utils.formatNameToUsername(nameField.getText());
+                List<Login> logins = LoginDao.getAllAccounts();
+                Login login = LoginDao.getAnAccount(LoginForm.usernameGlobal);
+                int count = 0;
+                for(Login lo: logins){
+                    if(lo.getUsername().contains(username))
+                        count++;
+                }
+                if(count > 0)
+                    username += String.valueOf(count);
+                login.setUsername(username);
+                LoginDao.updateAnAccount(login);
+                System.out.println(login.getId());
+                JOptionPane.showMessageDialog(null, "Cập nhập thành công!\nTên đăng nhập được cập nhập thành " + username);
             }
         });
     }

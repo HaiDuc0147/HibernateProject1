@@ -1,6 +1,7 @@
 package utils;
 
 import GUI.LoginFormStudent;
+import GUI.ShowSemesters;
 import dao.*;
 import hibernate.*;
 
@@ -93,6 +94,49 @@ public class Utils {
         courseRegister.setCourseId(co);
         return courseRegister;
     }
+
+    public static CourseOpen getCourseOpenFromTable(JTable courseTable) {
+        int row = courseTable.getSelectedRow();
+        String courseId = (String) courseTable.getValueAt(row, 0);
+        Subject s = SubjectDao.getASubject(courseId);
+        Course c = new Course();
+        c.setCourseId(s);
+        String studyTime = (String) courseTable.getValueAt(row, 3);
+        String studyDate = (String) courseTable.getValueAt(row, 2);
+        String teacherName = (String) courseTable.getValueAt(row, 6);
+        c.setStudyTime(studyTime);
+        c.setStudyDay(studyDate);
+        c.setTeacherName(teacherName);
+        java.util.List<Course> courses = CourseDao.getAllCourses();
+        for (Course course : courses) {
+            if (course.toString().equals(c.toString())) {
+                c = course;
+                break;
+            }
+        }
+        CourseOpen co = new CourseOpen();
+        co.setCourseId(c);
+        co.setStartDay(Date.valueOf((String) courseTable.getValueAt(row, 7)));
+        co.setEndDay(Date.valueOf((String) courseTable.getValueAt(row, 8)));
+        String semesterName = ShowSemesters.chosenSemesterGlobal.toString();
+        Semester atPresent = null;
+        List<Semester> semesters = SemesterDao.getAllSemester();
+        for (Semester semester : semesters) {
+            if (semester.toString().equals(semesterName)) {
+                atPresent = semester;
+                break;
+            }
+        }
+        co.setSemesterId(atPresent);
+        List<CourseOpen> courseOpens = CourseOpenDao.getAllCourseOpen();
+        for (CourseOpen courseOpen : courseOpens) {
+            if (courseOpen.toString().equals(co.toString())) {
+                return courseOpen;
+            }
+        }
+        return null;
+    }
+
     public static List<Student> getAllStudentInClass(String classId){
         List<Student> temp = StudentDao.getAllStudent();
         List<Student> result = new ArrayList<>();

@@ -54,8 +54,8 @@ public class LoginFormStudent extends JDialog {
                 JOptionPane.showMessageDialog(null, message);
                 if(isSuccessLogin){
                     try {
-                        ListFeatureStudent features = new ListFeatureStudent();
-                        features.setSize(900, 400);
+                        ListStudentFeature features = new ListStudentFeature();
+                        features.setSize(1300, 900);
                         features.setLocationRelativeTo(null);
                         features.setVisible(true);
                         dispose();

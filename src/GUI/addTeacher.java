@@ -51,12 +51,21 @@ public class addTeacher extends JDialog {
                 teacher.setCitizenId(citizenIdField.getText());
                 teacher.setPhoneNumber(phoneNumberField.getText());
                 TeacherDao.insertATeacher(teacher);
-                Login login = new Login();
                 String username = Utils.formatNameToUsername(nameField.getText());
+                List<Login> logins = LoginDao.getAllAccounts();
+                int count = 0;
+                for(Login lo: logins){
+                    if(lo.getUsername().contains(username))
+                        count++;
+                }
+                Login login = new Login();
+                if(count > 0)
+                    username += String.valueOf(count);
                 login.setUsername(username);
                 login.setPassword(username);
                 login.setRole(true);
                 LoginDao.insertALogin(login);
+                JOptionPane.showMessageDialog(null, "Tạo giáo vụ thành công\nTên đăng nhập của giáo vụ là " + username);
                 dispose();
             }
         });

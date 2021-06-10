@@ -1,5 +1,7 @@
 package GUI;
 
+import dao.TeacherDao;
+import hibernate.Teacher;
 import utils.Utils;
 
 import javax.swing.*;
@@ -8,6 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class listFeature extends JDialog {
     private JPanel contentPane;
@@ -22,14 +25,22 @@ public class listFeature extends JDialog {
     private JButton addCourseButton;
     private JButton seeInformationButton;
     private JButton showSemesterButton;
+    private JLabel greetingLabel;
+    private JLabel lineLabel;
+    private JLabel helloLabel;
+    private JPanel headerPanel;
     private JButton buttonOK;
 
     public listFeature() throws IOException, FontFormatException {
-        Font font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/SVN-Journey-Bold.otf")).deriveFont(75f);
+        Font font = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/SVN-Journey-Bold.otf")).deriveFont(72f);
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         //register the font
         ge.registerFont(font);
 
+
+
+        setContentPane(contentPane);
+        setModal(true);
         this.setTitle("Quản lí sinh viên");
         this.setSize(800, 900);
         //helloField.setFont(font);
@@ -38,9 +49,6 @@ public class listFeature extends JDialog {
         informationLabel.setFont(font);
         int width = 200;
         int height = 200;
-
-        setContentPane(contentPane);
-        setModal(true);
 
         //Image img = ImageIO.read(new FileInputStream("img/addStudent1.ico"));
 
@@ -124,8 +132,22 @@ public class listFeature extends JDialog {
         showSemesterButton.setContentAreaFilled(false);
         showSemesterButton.setBorderPainted(false);
 
-
-
+        ImageIcon KHTNIcon = new ImageIcon ("img/KHTN2.png");
+        KHTNIcon = Utils.transformImg(KHTNIcon, 200, 200);
+        greetingLabel.setIcon(KHTNIcon);
+        helloLabel.setFont(font);
+        List<Teacher> teachers = TeacherDao.getAllTeacher();
+        String name = new String();
+        for(Teacher tc: teachers){
+            if(Utils.formatNameToUsername(tc.getTeacherName()).equals(LoginForm.usernameGlobal)){
+                name = tc.getTeacherName();
+                break;
+            }
+        }
+        helloLabel.setText("Xin chào " + name + "!");
+        ImageIcon lineIcon = new ImageIcon ("img/line1.png");
+        lineIcon = Utils.transformImg(lineIcon, 900, 20);
+        lineLabel.setIcon(lineIcon);
 
         addStudentButton.addActionListener(new ActionListener() {
             @Override

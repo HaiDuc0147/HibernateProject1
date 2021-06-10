@@ -2,9 +2,11 @@ package GUI;
 
 import dao.CourseDao;
 import dao.CourseOpenDao;
+import dao.CourseRegisterDao;
 import dao.SubjectDao;
 import hibernate.Course;
 import hibernate.CourseOpen;
+import hibernate.CourseRegister;
 import hibernate.Subject;
 import utils.Utils;
 
@@ -29,8 +31,9 @@ public class showCourses extends JDialog {
     private JList sessionList;
     private JTextField searchField;
     private JButton findButton;
-    private JTable courseSessionTable;
-    private JButton buttonOK;
+    private JButton showListStudentButton;
+    public static List<CourseRegister> courseRegisters;
+
 
     public showCourses() {
 
@@ -178,7 +181,7 @@ public class showCourses extends JDialog {
                     int row = courseTable.getSelectedRow();
                     int dialogButton = JOptionPane.YES_NO_OPTION;
                     int dialogResult = JOptionPane.showConfirmDialog(null, "Khi bạn xóa lớp học này, các sinh viên đã đăng kí " +
-                            "học phần này sẽ bị hủy đăng kí\nBạn có muốn xóa lớp này không?", "Warning", dialogButton);
+                            "học phần này sẽ bị hủy đăng kí\nBạn có muốn xóa học phần này không?", "Warning", dialogButton);
                     if (dialogResult == JOptionPane.YES_OPTION) {
                         //{"Mã Học Phần", "Tên Học Phần","Ngày học", "Ca học", "Phòng học", "Slot tối đa",  "Giáo viên giảng dạy",
                         //"Ngày bắt đầu đăng kí", "Ngày kết thúc đăng kí"};
@@ -197,6 +200,12 @@ public class showCourses extends JDialog {
                         co.setEndDay(Date.valueOf(courseTable.getModel().getValueAt(row, 8).toString()));
                         co.setSemesterId(ShowSemesters.chosenSemesterGlobal);
                         List<CourseOpen> courseOpenList = CourseOpenDao.getAllCourseOpen();
+                        List<CourseRegister> courseRegisters = CourseRegisterDao.getAllCourseRegister();
+                        for(CourseRegister courseRegister: courseRegisters){
+                            if(courseRegister.getCourseId().toString().equals(co.toString())){
+                                CourseRegisterDao.deleteACourseRegister(courseRegister);
+                            }
+                        }
                         for (CourseOpen courseOpen : courseOpenList)
                             if (co.toString().equals(courseOpen.toString()))
                                 CourseOpenDao.deleteACourseOpen(courseOpen);
@@ -253,6 +262,23 @@ public class showCourses extends JDialog {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+            }
+        });
+        showListStudentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CourseOpen c = Utils.getCourseOpenFromTable(courseTable);
+                List<CourseRegister> courseRegistersTemp = CourseRegisterDao.getAllCourseRegister();
+                courseRegisters = new ArrayList<>();
+                for(CourseRegister courseRegister: courseRegistersTemp){
+                    if(courseRegister.getCourseId().getId() == c.getId()){
+                        courseRegisters.add(courseRegister);
+                    }
+                }
+                ShowStudentsInCourse showStudentsInCourse = new ShowStudentsInCourse();
+                showStudentsInCourse.setLocationRelativeTo(null);
+                showStudentsInCourse.setVisible(true);
+
             }
         });
     }

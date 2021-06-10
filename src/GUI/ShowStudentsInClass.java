@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowStudentsInClass extends JDialog {
@@ -18,6 +19,8 @@ public class ShowStudentsInClass extends JDialog {
     private JButton showCourseButton;
     private JButton personalInformationButton;
     private JButton resetPasswordButton;
+    private JTextField searchField;
+    private JButton findButton;
     public static String studentIdGlobal;
     public ShowStudentsInClass() {
         this.setTitle("Danh sách sinh viên");
@@ -96,6 +99,34 @@ public class ShowStudentsInClass extends JDialog {
                 LoginDao.updateAccount(l);
                 JOptionPane.showMessageDialog(null, "Password được reset mặc định là MSSV!");
                 dispose();
+            }
+        });
+        findButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String keyword = searchField.getText();
+                List<Student> studentsByKeyword = new ArrayList<>();
+                for(Student t: students){
+                    if(t.getStudentId().contains(keyword) || t.getStudentName().contains(keyword))
+                        studentsByKeyword.add(t);
+                }
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+                int size1 = studentsByKeyword.size();
+                String[][] data1 = new String[size1][3];
+                for(int i = 0; i < size1; i++){
+                    data1[i][0] = studentsByKeyword.get(i).getStudentId();
+                    data1[i][1] = studentsByKeyword.get(i).getStudentName();
+                    if(studentsByKeyword.get(i).getGender()){
+                        data1[i][2] = "Nam";
+                    }
+                    else
+                        data1[i][2] = "Nữ";
+                }
+                for(int i = 0; i < size1; i++){
+                    model.addRow(data1[i]);
+                }
             }
         });
     }
