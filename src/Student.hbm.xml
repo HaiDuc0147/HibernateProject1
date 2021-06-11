@@ -23,9 +23,6 @@
         <many-to-one class="hibernate.Clazz" name="classId" lazy="false" cascade="save-update">
             <column name="class_id" sql-type="varchar(6)" length="6"/>
         </many-to-one>
-        <property name="credits">
-            <column name="credits" sql-type="integer"/>
-        </property>
         <property name="gender">
             <column name="gender" sql-type="boolean"/>
         </property>

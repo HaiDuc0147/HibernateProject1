@@ -38,9 +38,7 @@ public class AddStudent extends JDialog {
         List<Clazz> clazzes = ClassDao.getAllClasses();
         for(Clazz cl: clazzes)
             classField.addItem(cl.getClassId());
-        // call onCancel() when cross is clicked
 
-        // call onCancel() on ESCAPE
 
         isMaleCheckBox.addActionListener(new ActionListener() {
             @Override
@@ -70,13 +68,14 @@ public class AddStudent extends JDialog {
                 else
                     c.setNumberOfFemale(c.getNumberOfFemale() + 1);
                 ClassDao.updateAClass(c);
-                s.setCredits(0);
                 Login l = new Login();
                 l.setUsername(studentIdField.getText());
                 l.setPassword(studentIdField.getText());
                 l.setRole(false);
                 StudentDao.addStudent(s);
                 LoginDao.insertALogin(l);
+                JOptionPane.showMessageDialog(null, "Thêm sinh viên " + nameStudentField.getText() + " thành công!");
+                dispose();
             }
         });
     }

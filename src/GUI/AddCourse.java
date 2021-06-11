@@ -26,7 +26,7 @@ public class AddCourse extends JDialog {
 
     public AddCourse() {
         this.setTitle("Thêm học phần");
-        this.setSize(500, 400);
+        this.setSize(700, 400);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -86,6 +86,8 @@ public class AddCourse extends JDialog {
                     co.setEndDay(AddCourseSession.endDaySessionGlobal);
                     co.setSemesterId(ShowSemesters.chosenSemesterGlobal);
                     CourseOpenDao.insertACourseOpen(co);
+                    JOptionPane.showMessageDialog(null, "Thêm học phần thành công!");
+                    dispose();
                 }
             }
         });

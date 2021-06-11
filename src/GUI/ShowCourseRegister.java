@@ -139,13 +139,64 @@ public class ShowCourseRegister extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CourseRegister courseRegister = Utils.getCourseRegisterFromTable(courseTable, semesterComboBox);
-                List<CourseRegister> courseRegisters = CourseRegisterDao.getAllCourseRegister();
-                for(CourseRegister c: courseRegisters){
+                List<CourseRegister> courseRegisters2 = CourseRegisterDao.getAllCourseRegister();
+                for(CourseRegister c: courseRegisters2){
                     if(courseRegister.toString().equals(c.toString())){
                         CourseRegisterDao.deleteACourseRegister(c);
                         break;
                     }
                 }
+                JOptionPane.showMessageDialog(null, "Hủy học phần thành công!");
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+                String semesterName = (String)semesterComboBox.getSelectedItem();
+                Semester atPresent = null;
+                for(Semester s: semesters){
+                    if(s.toString().equals(semesterName)) {
+                        atPresent = s;
+                        break;
+                    }
+                }
+                List<CourseRegister> courseRegisters1 = CourseRegisterDao.getAllCourseRegister();
+                List<CourseRegister> courseRegisters = new ArrayList<>();
+                for (CourseRegister c : courseRegisters1) {
+                    if (c.getCourseId().getSemesterId().getId() == atPresent.getId() && c.getStudentId().getStudentId().equals(LoginFormStudent.usernameGlobal)) {
+                        courseRegisters.add(c);
+                    }
+                }
+                int size = courseRegisters.size();
+                while (model.getRowCount() > 0) {
+                    model.removeRow(0);
+                }
+                String[][] data = new String[size][10];
+                if (size > 0) {
+                    for (int i = 0; i < size; i++) {
+                        data[i][0] = courseRegisters.get(i).getCourseId().getCourseId().getCourseId().getSubjectId();
+                        data[i][1] = courseRegisters.get(i).getCourseId().getCourseId().getCourseId().getSubjectName();
+                        data[i][2] = courseRegisters.get(i).getCourseId().getCourseId().getStudyDay();
+                        data[i][3] = courseRegisters.get(i).getCourseId().getCourseId().getStudyTime();
+                        data[i][4] = courseRegisters.get(i).getCourseId().getCourseId().getClassroom();
+                        data[i][5] = String.valueOf(courseRegisters.get(i).getCourseId().getCourseId().getSlot());
+                        data[i][6] = courseRegisters.get(i).getCourseId().getCourseId().getTeacherName();
+                        data[i][7] = String.valueOf(courseRegisters.get(i).getCourseId().getStartDay());
+                        data[i][8] = String.valueOf(courseRegisters.get(i).getCourseId().getEndDay());
+                        data[i][9] = String.valueOf(courseRegisters.get(i).getRegisterDay());
+                    }
+                    for (int i = 0; i < size; i++) {
+                        model.addRow(data[i]);
+                    }
+                    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+                    centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+                    for (int x = 0; x < columnNames.length; x++) {
+                        courseTable.getColumnModel().getColumn(x).setCellRenderer(centerRenderer);
+                    }
+                    courseTable.setModel(model);
+                    TableCellRenderer rendererFromHeader = courseTable.getTableHeader().getDefaultRenderer();
+                    JLabel headerLabel = (JLabel) rendererFromHeader;
+                    headerLabel.setHorizontalAlignment(JLabel.CENTER);
+                }
+
 
             }
         });

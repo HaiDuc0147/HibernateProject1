@@ -6,7 +6,6 @@ public class Student {
     private int id;
     private String studentId;
     private String studentName;
-    private int credits;
     private Clazz classId;
     private boolean gender;
 
@@ -52,13 +51,6 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public int getCredits() {
-        return credits;
-    }
-
-    public void setCredits(int credits) {
-        this.credits = credits;
-    }
 
     public boolean getGender() {
         return gender;
@@ -73,11 +65,11 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id && credits == student.credits && gender == student.gender && Objects.equals(studentId, student.studentId) && Objects.equals(studentName, student.studentName);
+        return gender == student.gender && Objects.equals(studentId, student.studentId) && Objects.equals(studentName, student.studentName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, studentId, studentName, credits, gender);
+        return Objects.hash(id, studentId, studentName, gender);
     }
 }
