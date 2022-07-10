@@ -27,7 +27,6 @@ kì đăng kí học phần mới cho học kì hiện tại, trong đó qui đ�
 8. (15d) Xem danh sách, tìm kiếm các học phần (course) được mở trong học kì hiện tại.
 Thêm và xóa một học phần. Thông tin của mỗi học phần bao gồm: mã môn, tên môn, số tín
 chỉ, giáo viên lí thuyết, tên phòng học, học ngày thứ mấy trong tuần, học ca thứ mấy trong
-
 ngày (qui ước có 4 ca: 7:30 – 9:30, 9:30 – 11:30, 13:30 – 15:30 và 15:30 – 17:30), số slot tối
 đa.
 9. (10d) Xem danh sách, tìm kiếm sinh viên đăng kí trong một học phần. Danh sách này
